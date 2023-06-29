@@ -25,7 +25,7 @@ jobs:
       - name: cURL the API
         run: |
           healthcheck() {
-            [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/)" = "\"Welcome to v1 of the API!"\" ]
+            [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/)" = "Welcome to v1 of the API!" ]
           }
 
           healthcheck || healthcheck || healthcheck
