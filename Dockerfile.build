@@ -6,4 +6,7 @@ COPY Cargo.toml ./
 COPY Cargo.lock ./
 COPY src ./src
 
+RUN apt update
+RUN apt install libgraphite2-dev -y
+
 CMD ["cargo", "run", "--release"]
