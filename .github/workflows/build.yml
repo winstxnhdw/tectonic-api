@@ -29,6 +29,9 @@ jobs:
           override: true
           components: clippy
 
+      - name: Install Graphite
+        run: apt install libgraphite2-dev -y
+
       - name: Run linter
         uses: actions-rs/cargo@v1
         with:
