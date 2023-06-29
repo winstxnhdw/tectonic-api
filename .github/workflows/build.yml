@@ -1,0 +1,63 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/build.yml
+      - Dockerfile.build
+      - src/**
+
+permissions:
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: ghcr.io
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: clippy
+
+      - name: Run linter
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker
+        uses: docker/metadata-action@v4.6.0
+        id: meta
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          file: Dockerfile.build
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Factory restart API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          curl -X POST https://huggingface.co/api/spaces/$GITHUB_REPOSITORY/restart?factory=true \
+               -H "Authorization: Bearer $HF_TOKEN"
