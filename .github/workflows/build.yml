@@ -21,6 +21,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Graphite
+        run: sudo apt install libgraphite2-dev -y
+
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -28,9 +31,6 @@ jobs:
           toolchain: stable
           override: true
           components: clippy
-
-      - name: Install Graphite
-        run: apt install libgraphite2-dev -y
 
       - name: Run linter
         uses: actions-rs/cargo@v1
