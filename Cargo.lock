@@ -2410,12 +2410,9 @@ name = "tectonic-api"
 version = "0.1.0"
 dependencies = [
  "axum",
- "hyper",
  "serde",
- "serde_json",
  "tectonic",
  "tokio",
- "tower",
  "tracing",
  "tracing-subscriber",
 ]
