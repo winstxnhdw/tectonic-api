@@ -1,11 +1,10 @@
-use axum::{
-    body::Body,
-    http::header::{CONTENT_DISPOSITION, CONTENT_TYPE},
-    http::StatusCode,
-    response::{IntoResponse, Response},
-    Json,
-};
-
+use axum::body::Body;
+use axum::http::header::{CONTENT_DISPOSITION, CONTENT_TYPE};
+use axum::http::StatusCode;
+use axum::response::{IntoResponse, Response};
+use axum::Json;
+use retry::delay::NoDelay;
+use retry::retry;
 use serde::Deserialize;
 use tectonic::latex_to_pdf;
 
@@ -15,7 +14,8 @@ pub struct CompileSchema {
 }
 
 pub async fn compile(Json(payload): Json<CompileSchema>) -> impl IntoResponse {
-    let pdf = latex_to_pdf(payload.latex).expect("Unable to convert LaTeX to PDF");
+    let pdf = retry(NoDelay.take(1), || latex_to_pdf(&payload.latex))
+        .expect("Unable to convert LaTeX to PDF");
     let body = Body::from(pdf);
 
     Response::builder()

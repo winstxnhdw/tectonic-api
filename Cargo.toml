@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 axum = "0.6.18"
+retry = "2.0.0"
 serde = { version = "^1.0.164", features = ["derive"] }
 tectonic = "0.14.1"
 tokio = { version = "1.29.1", features = ["full"] }

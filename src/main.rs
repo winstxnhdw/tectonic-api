@@ -1,11 +1,8 @@
 mod compile;
 mod index;
 
-use axum::{
-    routing::{get, post},
-    Router, Server,
-};
-
+use axum::routing::{get, post};
+use axum::{Router, Server};
 use compile::compile;
 use index::index;
 use std::env::var;
