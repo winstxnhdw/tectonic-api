@@ -12,10 +12,10 @@ A simple [axum](https://github.com/tokio-rs/axum) API for compiling TeX/LaTeX wi
 Simply cURL the endpoint like in the following.
 
 ```bash
-curl 'https://winstxnhdw-tectonic-api.hf.space/compile' \
+curl -O 'https://winstxnhdw-tectonic-api.hf.space/v1/compile' \
   -H 'Content-Type: application/json' \
   -d '{
-  "latex": "\\documentclass{article}\\begin{document}Hello, world!\\end{document}"
+  "latex": "\\\documentclass{article}\\\begin{document}Hello, world!\\\end{document}"
 }'
 ```
 
