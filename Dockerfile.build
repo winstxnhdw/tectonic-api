@@ -1,4 +1,8 @@
-FROM rust:slim-bullseye
+FROM rust:slim-bullseye as builder
+
+WORKDIR /
+
+COPY . ./
 
 RUN apt update && \
     apt install -y \
@@ -7,15 +11,23 @@ RUN apt update && \
         libssl-dev \
         libfontconfig-dev \
         libharfbuzz-dev && \
+    cargo install --locked --path .
+
+
+FROM debian:bullseye-slim
+
+RUN apt update && \
+    apt install -y libssl-dev libfontconfig-dev libharfbuzz-dev && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m -u 1000 user
 
 ENV HOME=/home/user
+ENV PATH=$HOME/app:$PATH
 
 USER user
 
 WORKDIR $HOME/app
 
-COPY --chown=user . $HOME/app
+COPY --from=builder --chown=user /target/release/tectonic-api $HOME/app
 
-CMD ["cargo", "run", "--release"]
+CMD ["tectonic-api"]
