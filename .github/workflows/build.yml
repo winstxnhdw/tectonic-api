@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Graphite
-        run: sudo apt install libgraphite2-dev -y
+        run: sudo apt install -y libgraphite2-dev
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
