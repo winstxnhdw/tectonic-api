@@ -68,11 +68,11 @@ jobs:
   restart:
     needs: [lint, build]
     runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
     steps:
       - name: Factory restart API
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           curl -X POST https://huggingface.co/api/spaces/$GITHUB_REPOSITORY/restart?factory=true \
                -H "Authorization: Bearer $HF_TOKEN"
