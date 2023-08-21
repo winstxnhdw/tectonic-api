@@ -2,16 +2,17 @@ FROM rust:slim-bullseye as builder
 
 WORKDIR /
 
-COPY . .
-
 RUN apt update && \
     apt install -y \
         g++ \
         pkg-config \
         libssl-dev \
         libfontconfig-dev \
-        libharfbuzz-dev && \
-    cargo install --locked --path .
+        libharfbuzz-dev
+
+COPY . .
+
+RUN cargo install --locked --path .
 
 
 FROM debian:bullseye-slim
