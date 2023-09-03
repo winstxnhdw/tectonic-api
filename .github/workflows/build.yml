@@ -21,17 +21,12 @@ jobs:
         run: sudo apt install -y libgraphite2-dev
 
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: stable
-          override: true
           components: clippy
 
-      - name: Run linter
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
+      - name: Lint
+        run: cargo clippy
 
   build:
     runs-on: ubuntu-latest
