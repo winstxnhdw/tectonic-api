@@ -2,8 +2,8 @@ FROM rust:slim-bullseye as builder
 
 WORKDIR /
 
-RUN apt update && \
-    apt install -y \
+RUN apt update
+RUN apt install -y \
         g++ \
         pkg-config \
         libssl-dev \
@@ -25,10 +25,10 @@ RUN apt update && \
 ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
 
-USER user
-
 WORKDIR $HOME/app
 
-COPY --from=builder --chown=user /target/release/tectonic-api $HOME/app
+USER user
+
+COPY --chown=user --from=builder /target/release/tectonic-api $HOME/app
 
 CMD ["tectonic-api"]
