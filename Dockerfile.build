@@ -17,18 +17,17 @@ RUN cargo install --locked --path .
 
 FROM debian:bullseye-slim
 
-RUN apt update && \
-    apt install -y libssl-dev libfontconfig-dev libharfbuzz-dev && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd -m -u 1000 user
-
 ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
 
-WORKDIR $HOME/app
+RUN useradd -m -u 1000 user
 
 USER user
 
+WORKDIR $HOME/app
+
+COPY --chown=user --from=builder /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --chown=user --from=builder /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libexpat.so.1
 COPY --chown=user --from=builder /target/release/tectonic-api $HOME/app
 
 CMD ["tectonic-api"]
