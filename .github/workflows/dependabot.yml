@@ -13,7 +13,7 @@ jobs:
       - name: Run the Docker containers
         run: docker build -t $REPOSITORY_NAME .
         env:
-            REPOSITORY_NAME: ${{ github.event.repository.name }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
 
   auto-merge:
     needs: build
