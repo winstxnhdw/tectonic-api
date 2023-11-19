@@ -3,6 +3,9 @@ name = "tectonic-api"
 version = "0.1.0"
 edition = "2021"
 
+[build]
+rustflags = ["-Z", "threads=2"]
+
 [dependencies]
 axum = "0.6.20"
 serde = { version = "^1.0.192", features = ["derive"] }
