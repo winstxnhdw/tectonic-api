@@ -9,7 +9,7 @@ rustflags = ["-Z", "threads=2"]
 [dependencies]
 axum = "0.7.3"
 serde = { version = "^1.0.194", features = ["derive"] }
-serde_json = "1.0.110"
+serde_json = "1.0.111"
 tectonic = { version = "0.14.1", default-features = false, features = ["geturl-curl"] }
 tokio = { version = "1.35.1", features = ["full"] }
 tracing = "0.1.40"
