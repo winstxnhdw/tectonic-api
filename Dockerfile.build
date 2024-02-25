@@ -1,11 +1,10 @@
-FROM rust:slim-bullseye as builder
+FROM rust:slim as builder
 
 WORKDIR /
 
 RUN apt update
 RUN apt install -y \
         g++ \
-        pkg-config \
         libssl-dev \
         libfontconfig-dev \
         libharfbuzz-dev
@@ -15,7 +14,7 @@ COPY . .
 RUN cargo install --locked --path .
 
 
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
@@ -27,7 +26,6 @@ USER user
 WORKDIR $HOME/app
 
 COPY --chown=user --from=builder /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-COPY --chown=user --from=builder /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libexpat.so.1
 COPY --chown=user --from=builder /target/release/tectonic-api $HOME/app
 
 CMD ["tectonic-api"]

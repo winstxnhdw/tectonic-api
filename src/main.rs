@@ -2,7 +2,7 @@ mod compile;
 mod index;
 
 use axum::routing::{get, post};
-use axum::{Router, Server};
+use axum::{serve, Router};
 use compile::{compile, CompileSchema};
 use index::index;
 use std::env::var;
@@ -22,15 +22,15 @@ struct ApiSpecification;
 async fn main() {
     fmt::init();
 
+    let port = var("SERVER_PORT").unwrap();
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{port}"))
+        .await
+        .unwrap();
+
     let app = Router::new()
         .route("/v1", get(index))
         .route("/v1/compile", post(compile))
         .merge(SwaggerUi::new("/docs").url("/api-doc/openapi.json", ApiSpecification::openapi()));
 
-    let port = var("SERVER_PORT").unwrap();
-
-    Server::bind(&format!("0.0.0.0:{port}").parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    serve(listener, app).await.unwrap();
 }
