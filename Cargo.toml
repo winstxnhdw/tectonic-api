@@ -14,5 +14,5 @@ tectonic = { version = "0.15.0", default-features = false, features = ["geturl-c
 tokio = { version = "1.37.0", features = ["full"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
-utoipa = { version = "4.2.0", features = ["axum_extras"] }
-utoipa-swagger-ui = { version = "6.0.0", features = ["axum"] }
+utoipa = { version = "4.2.1", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "7.0.0", features = ["axum"] }
