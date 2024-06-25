@@ -10,34 +10,10 @@ on:
       - src/**
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Graphite
-        run: sudo apt install -y libgraphite2-dev
-
-      - name: Cache Cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-
-      - name: Lint
-        run: cargo clippy
+  rust:
+    uses: winstxnhdw/actions/.github/workflows/rust.yml@main
+    with:
+      disable-test: true
 
   build:
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
@@ -49,7 +25,7 @@ jobs:
       packages: write
 
   restart:
-    needs: [lint, build]
+    needs: [rust, build]
     uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
     secrets:
       token: ${{ secrets.HF_TOKEN }}
