@@ -1,8 +1,6 @@
 name: Warm
 
 on:
-  push:
-    paths: .github/workflows/warmer.yml
   schedule:
     #       ┌──────────────── minute (0 - 59)
     #       │ ┌────────────── hour (0 - 23)
@@ -17,15 +15,4 @@ on:
 
 jobs:
   warm:
-    runs-on: ubuntu-latest
-    env:
-      REPOSITORY_NAME: ${{ github.event.repository.name }}
-
-    steps:
-      - name: cURL the API
-        run: |
-          healthcheck() {
-            [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/v1)" = "Welcome to v1 of the API!" ]
-          }
-
-          healthcheck || healthcheck || healthcheck
+    uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@main
