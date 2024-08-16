@@ -1,4 +1,4 @@
-FROM rust:slim as rust-builder
+FROM rust:slim AS rust-builder
 
 COPY . .
 
@@ -8,21 +8,10 @@ RUN rustup default nightly
 RUN cargo install --locked --path .
 
 
-FROM python:slim as python-builder
+FROM rust:slim
 
-RUN pip install supervisor
-
-
-FROM caddy:builder-alpine as caddy-builder
-
-RUN xcaddy build master --with github.com/caddyserver/cache-handler
-
-
-FROM python:slim
-
-ENV HOME /home/user
-ENV SERVER_PORT 5000
-ENV PATH $HOME/app:$PATH
+ENV HOME=/home/user
+ENV PATH=$HOME/app:$PATH
 
 RUN useradd -m -u 1000 user
 
@@ -30,11 +19,6 @@ USER user
 
 WORKDIR $HOME/app
 
-COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
-COPY --chown=user --from=python-builder /usr/local/bin/supervisord /usr/local/bin/
-COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --chown=user --from=rust-builder   /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
 COPY --chown=user --from=rust-builder   /target/release/tectonic-api $HOME/app
-COPY --chown=user supervisord.conf Caddyfile $HOME/app/
 
-CMD ["supervisord"]
+CMD ["tectonic-api"]
