@@ -18,15 +18,19 @@ RUN rustup default nightly
 RUN cargo -Zscript install_texlive_bundle.rs
 
 
-FROM gcr.io/distroless/base:nonroot
+FROM debian:bookworm-slim
 
-ENV HOME=/home/nonroot
+ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
+
+RUN useradd -m -u 1000 user
+
+USER user
 
 WORKDIR $HOME/app
 
-COPY --chown=nonroot --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
-COPY --chown=nonroot --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-COPY --chown=nonroot --from=rust-builder    /target/release/tectonic-api $HOME/app
+COPY --chown=user --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --chown=user --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --chown=user --from=rust-builder    /target/release/tectonic-api $HOME/app
 
 CMD ["tectonic-api"]

@@ -10,8 +10,15 @@ use utoipa::OpenApi;
 struct ApiSpecification;
 
 pub fn app() -> Router {
-    Router::new().route("/", get(())).merge(v1::router()).merge(
-        utoipa_swagger_ui::SwaggerUi::new("/docs")
-            .url("/api-docs/openapi.json", ApiSpecification::openapi()),
-    )
+    let root_path = "/api";
+
+    Router::new()
+        .nest(
+            root_path,
+            Router::new().route("/", get(())).merge(v1::router()),
+        )
+        .merge(
+            utoipa_swagger_ui::SwaggerUi::new(format!("{}/docs", root_path))
+                .url("/api-docs/openapi.json", ApiSpecification::openapi()),
+        )
 }

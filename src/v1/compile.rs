@@ -12,7 +12,7 @@ pub struct CompileSchema {
 
 #[utoipa::path(
     post,
-    path = "/v1/compile",
+    path = "/api/v1/compile",
     request_body = CompileSchema,
     responses(
         (status = 200, body = Vec<u8>, content_type = "application/pdf"),
@@ -27,10 +27,14 @@ pub async fn compile(Json(payload): Json<CompileSchema>) -> impl IntoResponse {
             .header(CONTENT_DISPOSITION, "attachment; filename=\"compiled.pdf\"")
             .body(Body::from(pdf))
             .unwrap(),
-        _ => Response::builder()
-            .status(StatusCode::BAD_REQUEST)
-            .header(CONTENT_TYPE, "text/plain")
-            .body(Body::from("Failed to compile to PDF!"))
-            .unwrap(),
+        Err(error) => {
+            eprintln!("{:?}", error);
+
+            Response::builder()
+                .status(StatusCode::BAD_REQUEST)
+                .header(CONTENT_TYPE, "text/plain")
+                .body(Body::from("Failed to compile to PDF!"))
+                .unwrap()
+        }
     }
 }
