@@ -8,17 +8,25 @@ RUN rustup default nightly
 RUN cargo install --locked --path .
 
 
-FROM rust:slim
+FROM rust:slim AS texlive-builder
 
-ENV HOME=/home/user
+COPY scripts/install_texlive_bundle.rs .
+
+RUN apt update
+RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
+RUN rustup default nightly
+RUN cargo -Zscript install_texlive_bundle.rs
+
+
+FROM gcr.io/distroless/base:nonroot
+
+ENV HOME=/home/nonroot
 ENV PATH=$HOME/app:$PATH
-
-RUN useradd -m -u 1000 user
-
-USER user
 
 WORKDIR $HOME/app
 
-COPY --chown=user --from=rust-builder   /target/release/tectonic-api $HOME/app
+COPY --chown=nonroot --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --chown=nonroot --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --chown=nonroot --from=rust-builder    /target/release/tectonic-api $HOME/app
 
 CMD ["tectonic-api"]
