@@ -16,3 +16,5 @@ on:
 jobs:
   warm:
     uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@main
+    with:
+      path: /api/docs
