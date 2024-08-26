@@ -23,13 +23,13 @@ FROM debian:bookworm-slim
 ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
 
-RUN useradd -m -u 1000 user
-
+RUN useradd -m -u 1000 user && apt update && apt install -y ca-certificates && rm -r /var/lib/apt/lists/*
 USER user
 
 WORKDIR $HOME/app
 
 COPY --chown=user --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --chown=user --from=rust-builder    /etc/fonts /etc/fonts
 COPY --chown=user --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
 COPY --chown=user --from=rust-builder    /target/release/tectonic-api $HOME/app
 
