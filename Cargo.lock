@@ -2666,7 +2666,7 @@ checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 [[package]]
 name = "tectonic"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "byte-unit",
  "cfg-if",
@@ -2722,7 +2722,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_core"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "flate2",
@@ -2737,7 +2737,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_flate"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "flate2",
  "libc",
@@ -2746,7 +2746,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_freetype2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2754,7 +2754,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_graphite2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2762,7 +2762,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_harfbuzz"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "tectonic_bridge_graphite2",
@@ -2772,7 +2772,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_icu"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2780,7 +2780,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bundles"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "flate2",
  "fs2",
@@ -2794,7 +2794,7 @@ dependencies = [
 [[package]]
 name = "tectonic_cfg_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "lazy_static",
 ]
@@ -2802,7 +2802,7 @@ dependencies = [
 [[package]]
 name = "tectonic_dep_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "pkg-config",
  "vcpkg",
@@ -2811,7 +2811,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_bibtex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "libc",
  "tectonic_bridge_core",
@@ -2822,7 +2822,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_spx2html"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "byteorder",
  "html-escape",
@@ -2842,7 +2842,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xdvipdfmx"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "libc",
@@ -2854,7 +2854,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xetex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "libc",
@@ -2871,7 +2871,7 @@ dependencies = [
 [[package]]
 name = "tectonic_errors"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "anyhow",
 ]
@@ -2879,7 +2879,7 @@ dependencies = [
 [[package]]
 name = "tectonic_geturl"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cfg-if",
  "curl",
@@ -2890,7 +2890,7 @@ dependencies = [
 [[package]]
 name = "tectonic_io_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "app_dirs2",
  "flate2",
@@ -2904,7 +2904,7 @@ dependencies = [
 [[package]]
 name = "tectonic_pdf_io"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "tectonic_bridge_core",
@@ -2916,7 +2916,7 @@ dependencies = [
 [[package]]
 name = "tectonic_status_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "tectonic_errors",
 ]
@@ -2924,7 +2924,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xdv"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "byteorder",
 ]
@@ -2932,7 +2932,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xetex_layout"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#82484dbbfd698944c9d29cf6c0944c17e95d1e53"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#87a2aad54a61028fb7910ec4a8e6c3144142017b"
 dependencies = [
  "cc",
  "tectonic_bridge_core",
