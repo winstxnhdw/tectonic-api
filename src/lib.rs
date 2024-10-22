@@ -9,13 +9,13 @@ use utoipa::OpenApi;
 #[openapi(info(description = "An API for compiling TeX/LaTeX with Tectonic"))]
 struct ApiSpecification;
 
-pub fn app() -> Router {
+pub fn app(max_cache_memory: u64, cache_expiry: std::time::Duration) -> Router {
     let root_path = "/api";
     let shared_state = std::sync::Arc::new(state::AppState {
         cache: moka::future::Cache::builder()
             .weigher(|_, v: &Vec<u8>| v.len().try_into().unwrap_or(u32::MAX))
-            .max_capacity(12 * 1024 * 1024 * 1024)
-            .time_to_idle(std::time::Duration::from_secs(3600))
+            .max_capacity(max_cache_memory)
+            .time_to_idle(cache_expiry)
             .build_with_hasher(gxhash::GxBuildHasher::default()),
     });
 
