@@ -1,8 +1,13 @@
+use std::sync::Arc;
+
 use axum::body::Body;
+use axum::extract::State;
 use axum::http::header::{CONTENT_DISPOSITION, CONTENT_TYPE};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use axum::Json;
+
+use crate::state::AppState;
 
 #[derive(serde::Deserialize, utoipa::ToSchema)]
 pub struct CompileSchema {
@@ -19,8 +24,21 @@ pub struct CompileSchema {
         (status = 400, body = String)
     )
 )]
-pub async fn compile(Json(payload): Json<CompileSchema>) -> impl IntoResponse {
-    match tectonic::latex_to_pdf(payload.latex) {
+pub async fn compile(
+    State(state): State<Arc<AppState>>,
+    Json(payload): Json<CompileSchema>,
+) -> impl IntoResponse {
+    let result = state
+        .cache
+        .try_get_with(payload.latex.clone(), async {
+            match tectonic::latex_to_pdf(payload.latex) {
+                Ok(pdf) => Ok(pdf),
+                Err(error) => Err(error.to_string()),
+            }
+        })
+        .await;
+
+    match result {
         Ok(pdf) => Response::builder()
             .status(StatusCode::OK)
             .header(CONTENT_TYPE, "application/pdf")

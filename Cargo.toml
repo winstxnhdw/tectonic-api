@@ -3,6 +3,9 @@ lto = "fat"
 codegen-units = 1
 panic = "abort"
 
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
 [package]
 name = "tectonic-api"
 version = "0.1.0"
@@ -17,4 +20,11 @@ tower-http = { version = "0.6.1", features = ["util"] }
 utoipa = { version = "5.1.1", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "8.0.2", features = ["axum"] }
 utoipauto = "0.2.0"
-tectonic = { git = "https://github.com/tectonic-typesetting/tectonic.git", default-features = false, features = ["geturl-curl"] }
+tectonic = { git = "https://github.com/tectonic-typesetting/tectonic.git", default-features = false, features = [
+    "geturl-curl",
+] }
+moka = { version = "0.12.8", features = ["future"] }
+gxhash = "3.4.1"
+
+[features]
+hybrid = ["gxhash/hybrid"]

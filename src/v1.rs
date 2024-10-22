@@ -6,8 +6,11 @@ use axum::{
     Router,
 };
 
-pub fn router() -> Router {
+use crate::state::AppState;
+
+pub fn router(shared_state: std::sync::Arc<AppState>) -> Router {
     Router::new()
         .route("/v1", get(index::index))
         .route("/v1/compile", post(compile::compile))
+        .with_state(shared_state)
 }
