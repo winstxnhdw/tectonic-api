@@ -1,5 +1,5 @@
 use gxhash::GxBuildHasher;
 
 pub struct AppState {
-    pub cache: moka::future::Cache<std::string::String, Vec<u8>, GxBuildHasher>,
+    pub cache: moka::future::Cache<String, Vec<u8>, GxBuildHasher>,
 }

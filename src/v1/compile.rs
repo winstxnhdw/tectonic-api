@@ -45,13 +45,14 @@ pub async fn compile(
             .header(CONTENT_DISPOSITION, "attachment; filename=\"compiled.pdf\"")
             .body(Body::from(pdf))
             .unwrap(),
+
         Err(error) => {
             eprintln!("{:?}", error);
 
             Response::builder()
                 .status(StatusCode::BAD_REQUEST)
                 .header(CONTENT_TYPE, "text/plain")
-                .body(Body::from("Failed to compile to PDF!"))
+                .body("Failed to compile to PDF!".into())
                 .unwrap()
         }
     }
