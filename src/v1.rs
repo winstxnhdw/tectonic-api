@@ -8,7 +8,7 @@ use axum::{
 
 use crate::state::AppState;
 
-pub fn router(shared_state: std::sync::Arc<AppState>) -> Router {
+pub fn router(shared_state: AppState) -> Router {
     Router::new()
         .route("/v1", get(index::index))
         .route("/v1/compile", post(compile::compile))

@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use axum::body::Body;
 use axum::extract::State;
 use axum::http::header::{CONTENT_DISPOSITION, CONTENT_TYPE};
@@ -25,7 +23,7 @@ pub struct CompileSchema {
     )
 )]
 pub async fn compile(
-    State(state): State<Arc<AppState>>,
+    State(state): State<AppState>,
     Json(payload): Json<CompileSchema>,
 ) -> impl IntoResponse {
     let result = state

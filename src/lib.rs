@@ -11,13 +11,13 @@ struct ApiSpecification;
 
 pub fn app(max_cache_memory: u64, cache_expiry: std::time::Duration) -> Router {
     let root_path = "/api";
-    let shared_state = std::sync::Arc::new(state::AppState {
+    let shared_state = state::AppState {
         cache: moka::future::Cache::builder()
             .weigher(|_, v: &Vec<u8>| v.len().try_into().unwrap_or(u32::MAX))
             .max_capacity(max_cache_memory)
             .time_to_idle(cache_expiry)
             .build_with_hasher(gxhash::GxBuildHasher::default()),
-    });
+    };
 
     Router::new()
         .nest(
