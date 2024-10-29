@@ -17,10 +17,7 @@ Simply cURL the endpoint like in the following.
 ```bash
 curl -O 'https://winstxnhdw-tectonic-api.hf.space/api/v1/compile' \
      -H 'Content-Type: application/json' \
-     -d \
-'{
-    "latex": "\\\documentclass{article}\\\begin{document}Hello, world!\\\end{document}"
- }'
+     -d '{ "latex": "\\\documentclass{article}\\\begin{document}Hello, world!\\\end{document}" }'
 ```
 
 ## Development
