@@ -3,7 +3,6 @@ lto = "fat"
 codegen-units = 1
 panic = "abort"
 
-
 [package]
 name = "tectonic-api"
 version = "0.1.0"
