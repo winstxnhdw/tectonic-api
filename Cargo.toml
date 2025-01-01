@@ -9,7 +9,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-axum = "0.7.9"
+axum = "0.8.0"
 gxhash = "3.4.1"
 moka = { version = "0.12.8", features = ["future"] }
 serde = { version = "1.0.217", features = ["derive"] }
