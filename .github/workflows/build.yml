@@ -17,8 +17,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
 
-      - name: Install Graphite
-        run: sudo apt install -y libgraphite2-dev
+      - name: Install dependenc(ies)
+        run: sudo apt install -y libgraphite2-dev libfreetype-dev
 
       - name: Cache Cargo
         uses: actions/cache@v4.2.2
