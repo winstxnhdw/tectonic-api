@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.7
+        with:
+          show-progress: false
 
       - name: Install dependenc(ies)
         run: sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev
