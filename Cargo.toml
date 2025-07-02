@@ -14,7 +14,7 @@ gxhash = "3.5.0"
 moka = { version = "0.12.10", features = ["future"] }
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
-tokio = { version = "1.45.1", features = ["full"] }
+tokio = { version = "1.46.0", features = ["full"] }
 tower-http = { version = "0.6.6", features = ["util"] }
 utoipa = { version = "5.4.0", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum"] }
