@@ -2,8 +2,8 @@ name: Warm
 
 on:
   push:
-    branches: main
-    paths: .github/workflows/warmer.yml
+    branches: [main]
+    paths: [.github/workflows/warmer.yml]
   schedule:
     #       ┌──────────────── minute (0 - 59)
     #       │ ┌────────────── hour (0 - 23)
