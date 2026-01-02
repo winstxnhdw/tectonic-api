@@ -1,13 +1,3 @@
-FROM rust:slim AS rust-builder
-
-COPY . .
-
-RUN apt update
-RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
-RUN rustup default nightly
-RUN cargo install --locked --features hybrid --path .
-
-
 FROM rust:slim AS texlive-builder
 
 COPY scripts/install_texlive_bundle.rs .
@@ -16,6 +6,16 @@ RUN apt update
 RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
 RUN rustup default nightly
 RUN cargo -Zscript install_texlive_bundle.rs
+
+
+FROM rust:slim AS rust-builder
+
+COPY . .
+
+RUN apt update
+RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
+RUN rustup default nightly
+RUN cargo install --locked --features hybrid --path .
 
 
 FROM debian:bookworm-slim

@@ -8,6 +8,7 @@ on:
       - Dockerfile.build
       - Cargo.toml
       - src/**
+      - scripts/**
 
 jobs:
   lint:
@@ -20,7 +21,9 @@ jobs:
           show-progress: false
 
       - name: Install dependenc(ies)
-        run: sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev
+        run: |
+          sudo apt update
+          sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev
 
       - name: Cache Cargo
         uses: actions/cache@v5.0.1
@@ -34,9 +37,10 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@nightly
-        with:
-          components: clippy
+        run: |
+          rustup default nightly
+          rustup component add clippy
+          rustup update
 
       - name: Lint
         run: cargo clippy
