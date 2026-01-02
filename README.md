@@ -1,6 +1,5 @@
 # tectonic-api
 
-[![main.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/main.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/main.yml)
 [![build.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/build.yml)
 [![warmer.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/warmer.yml)
 [![dependabot.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/dependabot.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/dependabot.yml)
