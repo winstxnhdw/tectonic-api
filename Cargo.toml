@@ -6,7 +6,10 @@ panic = "abort"
 [package]
 name = "tectonic-api"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+
+[features]
+hybrid = ["gxhash/hybrid"]
 
 [dependencies]
 axum = "0.8.8"
@@ -19,9 +22,8 @@ tower-http = { version = "0.6.8", features = ["util"] }
 utoipa = { version = "5.4.0", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum"] }
 utoipauto = "0.2.0"
-tectonic = { git = "https://github.com/tectonic-typesetting/tectonic.git", default-features = false, features = [
-    "geturl-curl",
-] }
 
-[features]
-hybrid = ["gxhash/hybrid"]
+[dependencies.tectonic]
+git = "https://github.com/tectonic-typesetting/tectonic.git"
+default-features = false
+features = ["geturl-curl"]

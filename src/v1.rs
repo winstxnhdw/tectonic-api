@@ -2,8 +2,8 @@ pub mod compile;
 pub mod index;
 
 use axum::{
-    routing::{get, post},
     Router,
+    routing::{get, post},
 };
 
 use crate::state::AppState;
