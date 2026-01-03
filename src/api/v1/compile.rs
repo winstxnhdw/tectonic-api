@@ -15,7 +15,6 @@ pub struct CompileSchema {
     request_body = CompileSchema,
     responses(
         (status = 200, body = Vec<u8>, content_type = "application/pdf"),
-        (status = 400, body = String)
     )
 )]
 pub async fn compile(
