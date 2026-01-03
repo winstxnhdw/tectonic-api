@@ -3,7 +3,7 @@ FROM rust:slim AS texlive-builder
 COPY scripts/install_texlive_bundle.rs .
 
 RUN apt update
-RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
+RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev
 RUN rustup default nightly
 RUN cargo -Zscript install_texlive_bundle.rs
 
@@ -13,7 +13,7 @@ FROM rust:slim AS rust-builder
 COPY . .
 
 RUN apt update
-RUN apt install -y curl g++ libssl-dev libfontconfig-dev libharfbuzz-dev
+RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev
 RUN rustup default nightly
 RUN cargo install --locked --features hybrid --path .
 
@@ -23,7 +23,7 @@ FROM debian:bookworm-slim
 ENV HOME=/home/user
 ENV PATH=$HOME/app:$PATH
 
-RUN useradd -m -u 1000 user && apt update && apt install -y ca-certificates && rm -r /var/lib/apt/lists/*
+RUN useradd -m -u 1000 user
 USER user
 
 WORKDIR $HOME/app

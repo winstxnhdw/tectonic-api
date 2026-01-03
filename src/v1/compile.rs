@@ -1,11 +1,7 @@
 use axum::Json;
-use axum::body::Body;
 use axum::extract::State;
-use axum::http::StatusCode;
-use axum::http::header::{CONTENT_DISPOSITION, CONTENT_TYPE};
-use axum::response::{IntoResponse, Response};
-
-use crate::state::AppState;
+use axum::http;
+use axum::http::header;
 
 #[derive(serde::Deserialize, utoipa::ToSchema)]
 pub struct CompileSchema {
@@ -23,35 +19,17 @@ pub struct CompileSchema {
     )
 )]
 pub async fn compile(
-    State(state): State<AppState>,
+    State(state): State<crate::state::AppState>,
     Json(payload): Json<CompileSchema>,
-) -> impl IntoResponse {
-    let result = state
-        .cache
-        .try_get_with(payload.latex.clone(), async {
-            match tectonic::latex_to_pdf(payload.latex) {
-                Ok(pdf) => Ok(pdf),
-                Err(error) => Err(error.to_string()),
-            }
-        })
-        .await;
+) -> Result<impl axum::response::IntoResponse, String> {
+    let result = state.cache.try_get_with(payload.latex.clone(), async {
+        crate::features::latex_to_pdf(&payload.latex).map_err(|e| e.to_string())
+    });
 
-    match result {
-        Ok(pdf) => Response::builder()
-            .status(StatusCode::OK)
-            .header(CONTENT_TYPE, "application/pdf")
-            .header(CONTENT_DISPOSITION, "attachment; filename=\"compiled.pdf\"")
-            .body(Body::from(pdf))
-            .unwrap(),
-
-        Err(error) => {
-            eprintln!("{:?}", error);
-
-            Response::builder()
-                .status(StatusCode::BAD_REQUEST)
-                .header(CONTENT_TYPE, "text/plain")
-                .body("Failed to compile to PDF!".into())
-                .unwrap()
-        }
-    }
+    http::Response::builder()
+        .status(http::StatusCode::OK)
+        .header(header::CONTENT_TYPE, "application/pdf")
+        .header(header::CONTENT_DISPOSITION, "attachment; filename=\"compiled.pdf\"")
+        .body(axum::body::Body::from(result.await.map_err(|e| e.to_string())?))
+        .map_err(|e| e.to_string())
 }
