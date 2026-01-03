@@ -11,10 +11,6 @@ on:
       - src/**
       - scripts/**
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -28,7 +24,7 @@ jobs:
       - name: Install dependenc(ies)
         run: |
           sudo apt update
-          sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev libharfbuzz-dev
+          sudo apt install -y libfreetype-dev libfontconfig-dev libharfbuzz-dev
 
       - name: Cache Cargo
         uses: actions/cache@v5.0.1
