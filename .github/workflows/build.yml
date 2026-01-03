@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  pull_request:
   push:
     branches: [main]
     paths:
@@ -45,7 +46,8 @@ jobs:
       - name: Lint
         run: cargo clippy
 
-  build:
+  push:
+    if: github.ref == 'refs/heads/main'
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
     with:
       file: Dockerfile.build
@@ -55,7 +57,7 @@ jobs:
       packages: write
 
   restart:
-    needs: [lint, build]
+    needs: [lint, push]
     uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
     secrets:
       token: ${{ secrets.HF_TOKEN }}

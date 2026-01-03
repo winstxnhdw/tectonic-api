@@ -26,4 +26,4 @@ utoipauto = "0.2.0"
 [dependencies.tectonic]
 git = "https://github.com/tectonic-typesetting/tectonic.git"
 default-features = false
-features = ["geturl-curl"]
+features = ["external-harfbuzz"]
