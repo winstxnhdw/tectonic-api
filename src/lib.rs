@@ -1,6 +1,6 @@
+mod api;
 mod features;
 mod state;
-mod v1;
 
 use axum::Router;
 use utoipa::OpenApi;
@@ -21,8 +21,8 @@ pub fn app(max_cache_memory: u64, cache_expiry: std::time::Duration) -> Router {
 
     let scalar = utoipa_scalar::Scalar::with_url("/schema/scalar", ApiSpecification::openapi());
     let v1 = Router::new()
-        .route("/", axum::routing::get(()))
-        .merge(v1::router(state::AppState { cache }));
+        .route("/health", axum::routing::get(api::health::health))
+        .merge(api::v1::router(state::AppState { cache }));
 
     Router::new().nest(root_path, v1).merge(scalar)
 }
