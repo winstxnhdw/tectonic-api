@@ -24,7 +24,7 @@ jobs:
       - name: Install dependenc(ies)
         run: |
           sudo apt update
-          sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev
+          sudo apt install -y libgraphite2-dev libfreetype-dev libfontconfig-dev libharfbuzz-dev
 
       - name: Cache Cargo
         uses: actions/cache@v5.0.1
