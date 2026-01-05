@@ -16,7 +16,7 @@ axum = { version = "0.8.8", default-features = false, features = ["tokio", "json
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.12", default-features = false, features = ["future"] }
 serde = { version = "1.0.228", default-features = false, features = ["derive"] }
-tokio = { version = "1.48.0", default-features = false }
+tokio = { version = "1.49.0", default-features = false }
 utoipa = { version = "5.4.0", default-features = false, features = ["axum_extras"] }
 utoipa-scalar = { version = "0.3", default-features = false, features = ["axum"] }
 utoipauto = { version = "0.3.0-alpha.2", default-features = false }
