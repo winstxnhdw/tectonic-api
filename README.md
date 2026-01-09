@@ -8,7 +8,7 @@
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/tectonic-api)
 [![Open a Pull Request](https://huggingface.co/datasets/huggingface/badges/raw/main/open-a-pr-md-dark.svg)](https://github.com/winstxnhdw/tectonic-api/compare)
 
-A simple [axum](https://github.com/tokio-rs/axum) API for compiling TeX/LaTeX with [Tectonic](https://github.com/tectonic-typesetting/tectonic), hosted on Hugging Face Spaces.
+A blazingly fast [axum](https://github.com/tokio-rs/axum) API for compiling La/TeX offline with [Tectonic](https://github.com/tectonic-typesetting/tectonic), hosted on Hugging Face Spaces.
 
 ## Usage
 
@@ -16,11 +16,11 @@ A simple [axum](https://github.com/tokio-rs/axum) API for compiling TeX/LaTeX wi
 
 ### Parameters
 
-#### NotificationSchema
+#### CompileSchema
 
-> | name   |  type    | data type | description           |
-> | ------ | -------- | ----------| --------------------- |
-> | source | required | `string`  | TeX/LaTeX source code |
+> | name   |  type    | data type | description        |
+> | ------ | -------- | ----------| ------------------ |
+> | source | required | `string`  | La/TeX source code |
 
 ### Responses
 
