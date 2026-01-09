@@ -26,5 +26,5 @@ You can spin the server up locally with the following.
 
 ```bash
 docker build -f Dockerfile.build -t tectonic-api .
-docker run --rm -e SERVER_PORT=7860 -p 7860:7860 tectonic-api
+docker run --init --rm -e SERVER_PORT=7860 -p 7860:7860 tectonic-api
 ```
