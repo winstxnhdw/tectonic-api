@@ -7,7 +7,7 @@ pub struct HealthSchema {
     message: &'static str,
 }
 
-#[utoipa::path(get, path = "/health", responses((status = 200, body = HealthSchema)))]
+#[utoipa::path(get, path = "/api/health", responses((status = 200, body = HealthSchema)))]
 pub async fn health() -> impl axum::response::IntoResponse {
     let health = HealthSchema {
         schema_version: 1,

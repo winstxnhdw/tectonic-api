@@ -12,13 +12,27 @@ A simple [axum](https://github.com/tokio-rs/axum) API for compiling TeX/LaTeX wi
 
 ## Usage
 
-Simply cURL the endpoint like in the following.
+`GET` **`/v2/pdf`** `(compile TeX/LaTeX source)`
 
-```bash
-curl -O 'https://winstxnhdw-tectonic-api.hf.space/api/v1/compile' \
-     -H 'Content-Type: application/json' \
-     -d '{ "latex": "\\\documentclass{article}\\\begin{document}Hello, world!\\\end{document}" }'
-```
+### Parameters
+
+#### NotificationSchema
+
+> | name   |  type    | data type | description           |
+> | ------ | -------- | ----------| --------------------- |
+> | source | required | `string`  | TeX/LaTeX source code |
+
+### Responses
+
+> | http code | content-type      | reason                |
+> | --------- | ----------------- | --------------------- |
+> | `200`     | `application/pdf` | compiled PDF document |
+
+### Example cURL
+
+> ```bash
+> curl https://winstxnhdw-tectonic-api.hf.space/api/v2/pdf?source=<TEX_SOURCE_CODE>
+> ```
 
 ## Development
 

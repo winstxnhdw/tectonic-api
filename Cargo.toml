@@ -5,14 +5,14 @@ panic = "abort"
 
 [package]
 name = "tectonic-api"
-version = "0.1.0"
+version = "2.0.0"
 edition = "2024"
 
 [features]
 hybrid = ["gxhash/hybrid"]
 
 [dependencies]
-axum = { version = "0.8.8", default-features = false, features = ["tokio", "json", "http1", "http2"] }
+axum = { version = "0.8.8", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.12", default-features = false, features = ["future"] }
 serde = { version = "1.0.228", default-features = false, features = ["derive"] }
