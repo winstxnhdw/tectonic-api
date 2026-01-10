@@ -30,6 +30,8 @@ A blazingly fast [axum](https://github.com/tokio-rs/axum) API for compiling La/T
 > | http code | content-type      | reason                |
 > | --------- | ----------------- | --------------------- |
 > | `200`     | `application/pdf` | compiled PDF document |
+> | `400`     | `text/plain`      | bad request           |
+> | `500`     | `text/plain`      | internal server error |
 
 ### Example cURL
 
