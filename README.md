@@ -12,6 +12,9 @@ A blazingly fast [axum](https://github.com/tokio-rs/axum) API for compiling La/T
 
 ## Usage
 
+> [!IMPORTANT]\
+> `\input` is **not supported** as it requires access to your file system.
+
 `GET` **`/v2/pdf`** `(compile TeX/LaTeX source)`
 
 ### Parameters
