@@ -1,5 +1,6 @@
 .gitignore
 .dockerignore
+rustfmt.toml
 Dockerfile*
 *.md
 
