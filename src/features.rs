@@ -9,7 +9,7 @@ pub fn latex_to_pdf<T: AsRef<str>>(latex: T) -> errors::Result<Vec<u8>> {
     builder
         .bundle(config.default_bundle(true)?)
         .primary_input_buffer(latex.as_ref().as_bytes())
-        .tex_input_name(&format!("{}.tex", name))
+        .tex_input_name(&format!("{name}.tex"))
         .format_name("latex")
         .format_cache_path(config.format_cache_path()?)
         .keep_logs(false)
@@ -24,7 +24,7 @@ pub fn latex_to_pdf<T: AsRef<str>>(latex: T) -> errors::Result<Vec<u8>> {
     session.run(&mut status)?;
     session
         .into_file_data()
-        .remove(&format!("{}.pdf", name))
+        .remove(&format!("{name}.pdf"))
         .ok_or_else(|| errors::Error::from("LaTeX didn't report failure, but no PDF was created (??)"))
         .map(|file| file.data)
 }
