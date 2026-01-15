@@ -41,9 +41,19 @@ A blazingly fast [axum](https://github.com/tokio-rs/axum) API for compiling La/T
 
 ## Development
 
-You can spin the server up locally with the following.
+You can spin the server up locally by first building the Docker image.
 
 ```bash
 docker build -f Dockerfile.build -t tectonic-api .
-docker run --init --rm -e SERVER_PORT=7860 -p 7860:7860 tectonic-api
+```
+
+Finally, you can run the Docker container with the following environment variables.
+
+```bash
+docker run --init --rm \
+    -e SERVER_PORT=7860 \
+    -e MAX_CACHE_MEMORY=12884901888 \
+    -e CACHE_EXPIRY=3600 \
+    -p 7860:7860 \
+    tectonic-api
 ```
