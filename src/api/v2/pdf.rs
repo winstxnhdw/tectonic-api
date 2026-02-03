@@ -7,8 +7,8 @@ use axum::response::IntoResponse;
 
 #[derive(serde::Deserialize, utoipa::IntoParams)]
 pub struct CompileSchema {
-    #[param(example = r#"\documentclass{article}\begin{document}Hello, world!\end{document}"#)]
-    source: String,
+    #[param(value_type = String, example = r#"\documentclass{article}\begin{document}Hello, world!\end{document}"#)]
+    source: std::sync::Arc<str>,
 }
 
 #[utoipa::path(
