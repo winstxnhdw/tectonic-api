@@ -8,7 +8,7 @@
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/tectonic-api)
 [![Open a Pull Request](https://huggingface.co/datasets/huggingface/badges/raw/main/open-a-pr-md-dark.svg)](https://github.com/winstxnhdw/tectonic-api/compare)
 
-A blazingly fast [axum](https://github.com/tokio-rs/axum) API for compiling La/TeX offline with [Tectonic](https://github.com/tectonic-typesetting/tectonic), hosted on Hugging Face Spaces.
+A blazingly fast [PGO/BOLT](https://github.com/llvm/llvm-project/tree/main/bolt)-optimised [axum](https://github.com/tokio-rs/axum) API for compiling La/TeX offline with [Tectonic](https://github.com/tectonic-typesetting/tectonic), hosted on Hugging Face Spaces.
 
 ## Usage
 
