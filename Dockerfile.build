@@ -31,18 +31,16 @@ RUN cargo pgo bolt optimize --with-pgo
 RUN strip /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized
 
 
-FROM gcr.io/distroless/cc-debian13
+FROM gcr.io/distroless/cc-debian13:nonroot
 
 ENV HOME=/home/nonroot
 ENV PATH=$HOME/app:$PATH
 
-USER nonroot
-
 WORKDIR $HOME/app
 
-COPY --chown=nonroot --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
-COPY --chown=nonroot --from=rust-builder    /etc/fonts /etc/fonts
-COPY --chown=nonroot --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-COPY --chown=nonroot --from=rust-builder    /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized $HOME/app/tectonic-api
+COPY --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --from=rust-builder    /etc/fonts /etc/fonts
+COPY --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --from=rust-builder    /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized $HOME/app/tectonic-api
 
 CMD ["tectonic-api"]
