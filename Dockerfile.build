@@ -1,36 +1,46 @@
-FROM rust:slim AS texlive-builder
+FROM rust:slim-bookworm AS texlive-builder
 
-COPY scripts/install_texlive_bundle.rs .
+COPY rust-toolchain.toml scripts/install_texlive_bundle.rs ./
 
 RUN apt update
 RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev
-RUN rustup default nightly
 RUN cargo -Zscript install_texlive_bundle.rs
 
 
-FROM rust:slim AS rust-builder
+FROM rust:slim-bookworm AS rust-builder
 
 COPY . .
 
-RUN apt update
-RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev
-RUN rustup default nightly
-RUN cargo install --locked --features hybrid --path .
+ENV LLVM=clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04
+ENV BOLT_DIR=target/x86_64-unknown-linux-gnu/release
+ENV RUSTFLAGS="-C target-cpu=native"
+
+RUN apt update && apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev wget xz-utils
+RUN wget -qO- https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/$LLVM.tar.xz | tar xJ --strip-components=1 -C /usr/local/ $LLVM/bin/llvm-bolt $LLVM/bin/merge-fdata $LLVM/lib/libbolt_rt_instr.a
+RUN apt install -y libtinfo5
+RUN cargo install cargo-pgo
+RUN cargo pgo build -- --locked --features hybrid
+
+COPY --from=texlive-builder /root/.cache/Tectonic /root/.cache/Tectonic
+
+RUN cargo -Zscript scripts/collect_profiles.rs $BOLT_DIR/tectonic-api
+RUN cargo pgo bolt build --with-pgo -- --locked --features hybrid
+RUN cargo -Zscript scripts/collect_profiles.rs $BOLT_DIR/tectonic-api-bolt-instrumented
+RUN cargo pgo bolt optimize --with-pgo
 
 
-FROM debian:bookworm-slim
+FROM gcr.io/distroless/cc-debian12
 
-ENV HOME=/home/user
+ENV HOME=/home/nonroot
 ENV PATH=$HOME/app:$PATH
 
-RUN useradd -m -u 1000 user
-USER user
+USER nonroot
 
 WORKDIR $HOME/app
 
-COPY --chown=user --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
-COPY --chown=user --from=rust-builder    /etc/fonts /etc/fonts
-COPY --chown=user --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-COPY --chown=user --from=rust-builder    /target/release/tectonic-api $HOME/app
+COPY --chown=nonroot --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --chown=nonroot --from=rust-builder    /etc/fonts /etc/fonts
+COPY --chown=nonroot --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --chown=nonroot --from=rust-builder    /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized $HOME/app/tectonic-api
 
 CMD ["tectonic-api"]

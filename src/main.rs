@@ -1,5 +1,12 @@
 use std::env::var;
 
+async fn on_shutdown() {
+    tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+        .expect("failed to register SIGTERM handler")
+        .recv()
+        .await;
+}
+
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
     let max_cache_memory = var("MAX_CACHE_MEMORY")
@@ -15,5 +22,7 @@ async fn main() -> Result<(), std::io::Error> {
     let port = var("SERVER_PORT").unwrap_or("5555".into());
     let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{port}")).await?;
 
-    axum::serve(listener, app.into_make_service()).await
+    axum::serve(listener, app.into_make_service())
+        .with_graceful_shutdown(on_shutdown())
+        .await
 }
