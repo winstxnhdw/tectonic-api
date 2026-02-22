@@ -15,9 +15,9 @@ ENV LLVM=clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04
 ENV BOLT_DIR=target/x86_64-unknown-linux-gnu/release
 ENV RUSTFLAGS="-C target-cpu=native"
 
-RUN apt update && apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev wget xz-utils
+RUN apt update
+RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev libtinfo5 wget xz-utils
 RUN wget -qO- https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/$LLVM.tar.xz | tar xJ --strip-components=1 -C /usr/local/ $LLVM/bin/llvm-bolt $LLVM/bin/merge-fdata $LLVM/lib/libbolt_rt_instr.a
-RUN apt install -y libtinfo5
 RUN cargo install cargo-pgo
 RUN cargo pgo build -- --locked --features hybrid
 
