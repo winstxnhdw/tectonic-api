@@ -31,7 +31,7 @@ RUN cargo pgo bolt optimize --with-pgo
 RUN strip /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized
 
 
-FROM gcr.io/distroless/cc-debian12
+FROM gcr.io/distroless/cc-debian13
 
 ENV HOME=/home/nonroot
 ENV PATH=$HOME/app:$PATH
