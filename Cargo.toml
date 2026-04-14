@@ -12,7 +12,7 @@ edition = "2024"
 hybrid = ["gxhash/hybrid"]
 
 [dependencies]
-axum = { version = "0.8.8", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
+axum = { version = "0.8.9", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.15", default-features = false, features = ["future"] }
 serde = { version = "1.0.228", default-features = false, features = ["derive", "rc"] }
