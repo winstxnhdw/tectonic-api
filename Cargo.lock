@@ -103,27 +103,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
 
 [[package]]
-name = "app_dirs2"
-version = "2.5.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7e7b35733e3a8c1ccb90385088dd5b6eaa61325cb4d1ad56e683b5224ff352e"
-dependencies = [
- "jni",
- "ndk-context",
- "winapi",
- "xdg",
-]
-
-[[package]]
-name = "arbitrary"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1"
-dependencies = [
- "derive_arbitrary",
-]
-
-[[package]]
 name = "arrayvec"
 version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -266,6 +245,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "block-buffer"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cdd35008169921d80bc60d3d0ab416eecb028c4cd653352907921d95084790be"
+dependencies = [
+ "hybrid-array",
+]
+
+[[package]]
 name = "borsh"
 version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -382,12 +370,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cesu8"
-version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d43a04d8753f35258c91f8ec639f792891f748a1edbd759cf1dcea3382ad83c"
-
-[[package]]
 name = "cfg-if"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -488,16 +470,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b05b61dc5112cbb17e4b6cd61790d9845d13888356391624cbe7e41efeac1e75"
 
 [[package]]
-name = "combine"
-version = "4.6.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
-dependencies = [
- "bytes",
- "memchr",
-]
-
-[[package]]
 name = "concurrent-queue"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -505,6 +477,12 @@ checksum = "4ca0197aee26d1ae37445ee532fefce43251d24cc7c166799f4d46817f1d3973"
 dependencies = [
  "crossbeam-utils",
 ]
+
+[[package]]
+name = "const-oid"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6ef517f0926dd24a1582492c791b6a4818a4d94e789a334894aa15b0d12f55c"
 
 [[package]]
 name = "core-foundation-sys"
@@ -517,6 +495,15 @@ name = "cpufeatures"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280"
+dependencies = [
+ "libc",
+]
+
+[[package]]
+name = "cpufeatures"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b2a41393f66f16b0823bb79094d54ac5fbd34ab292ddafb9a0456ac9f87d201"
 dependencies = [
  "libc",
 ]
@@ -575,14 +562,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "derive_arbitrary"
-version = "1.4.2"
+name = "crypto-common"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e567bd82dcff979e4b03460c307b3cdc9e96fde3d73bed1496d2bc75d9dd62a"
+checksum = "77727bb15fa921304124b128af125e7e3b968275d1b108b379190264f4423710"
 dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.112",
+ "hybrid-array",
 ]
 
 [[package]]
@@ -597,8 +582,49 @@ version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
 dependencies = [
- "block-buffer",
- "crypto-common",
+ "block-buffer 0.10.4",
+ "crypto-common 0.1.7",
+]
+
+[[package]]
+name = "digest"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4850db49bf08e663084f7fb5c87d202ef91a3907271aff24a94eb97ff039153c"
+dependencies = [
+ "block-buffer 0.12.0",
+ "const-oid",
+ "crypto-common 0.2.1",
+]
+
+[[package]]
+name = "digest-io"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2de63d600bc7fab91180bc17385f29b342468dc8ef2af09dceba450a293de3da"
+dependencies = [
+ "digest 0.11.2",
+]
+
+[[package]]
+name = "directories"
+version = "6.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16f5094c54661b38d03bd7e50df373292118db60b585c08a411c6d840017fe7d"
+dependencies = [
+ "dirs-sys",
+]
+
+[[package]]
+name = "dirs-sys"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e01a3366d27ee9890022452ee61b2b63a67e6f13f58900b651ff5665f0bb1fab"
+dependencies = [
+ "libc",
+ "option-ext",
+ "redox_users",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -920,7 +946,7 @@ dependencies = [
  "gix-date",
  "gix-utils",
  "itoa",
- "thiserror 2.0.17",
+ "thiserror",
  "winnow",
 ]
 
@@ -940,7 +966,7 @@ dependencies = [
  "memchr",
  "once_cell",
  "smallvec",
- "thiserror 2.0.17",
+ "thiserror",
  "unicode-bom",
  "winnow",
 ]
@@ -955,7 +981,7 @@ dependencies = [
  "bstr",
  "gix-path",
  "libc",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -968,7 +994,7 @@ dependencies = [
  "itoa",
  "jiff",
  "smallvec",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -996,7 +1022,7 @@ dependencies = [
  "gix-features",
  "gix-path",
  "gix-utils",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -1020,7 +1046,7 @@ dependencies = [
  "faster-hex",
  "gix-features",
  "sha1-checked",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -1042,7 +1068,7 @@ checksum = "570f8b034659f256366dc90f1a24924902f20acccd6a15be96d44d1269e7a796"
 dependencies = [
  "gix-tempfile",
  "gix-utils",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -1062,7 +1088,7 @@ dependencies = [
  "gix-validate",
  "itoa",
  "smallvec",
- "thiserror 2.0.17",
+ "thiserror",
  "winnow",
 ]
 
@@ -1075,7 +1101,7 @@ dependencies = [
  "bstr",
  "gix-trace",
  "gix-validate",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -1095,7 +1121,7 @@ dependencies = [
  "gix-utils",
  "gix-validate",
  "memmap2",
- "thiserror 2.0.17",
+ "thiserror",
  "winnow",
 ]
 
@@ -1147,7 +1173,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b1e63a5b516e970a594f870ed4571a8fdcb8a344e7bd407a20db8bd61dbfde4"
 dependencies = [
  "bstr",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -1309,6 +1335,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6cb51c9a029ddc91b07a787f1d86b53ccfa49b0e86688c946ebe8d3555685dd7"
 dependencies = [
  "libm",
+]
+
+[[package]]
+name = "hybrid-array"
+version = "0.4.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08d46837a0ed51fe95bd3b05de33cd64a1ee88fc797477ca48446872504507c5"
+dependencies = [
+ "typenum",
 ]
 
 [[package]]
@@ -1505,7 +1540,7 @@ dependencies = [
  "normalize-path",
  "project-origins",
  "radix_trie",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tracing",
 ]
@@ -1613,28 +1648,6 @@ checksum = "875a5a69ac2bab1a891711cf5eccbec1ce0341ea805560dcd90b7a2e925132e8"
 dependencies = [
  "jiff-tzdb",
 ]
-
-[[package]]
-name = "jni"
-version = "0.21.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a87aa2bb7d2af34197c04845522473242e1aa17c12f4935d5856491a7fb8c97"
-dependencies = [
- "cesu8",
- "cfg-if",
- "combine",
- "jni-sys",
- "log",
- "thiserror 1.0.69",
- "walkdir",
- "windows-sys 0.45.0",
-]
-
-[[package]]
-name = "jni-sys"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8eaf4bc02d17cbdd7ff4c7438cafcdf7fb9a4613313ad11b4f8fefe7d3fa0130"
 
 [[package]]
 name = "js-sys"
@@ -1759,12 +1772,12 @@ checksum = "47e1ffaa40ddd1f3ed91f717a33c8c0ee23fff369e3aa8772b9605cc1d22f4c3"
 
 [[package]]
 name = "md-5"
-version = "0.10.6"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d89e7ee0cfbedfc4da3340218492196241d89eefb6dab27de5df917a6d2e78cf"
+checksum = "69b6441f590336821bb897fb28fc622898ccceb1d6cea3fde5ea86b090c4de98"
 dependencies = [
  "cfg-if",
- "digest",
+ "digest 0.11.2",
 ]
 
 [[package]]
@@ -1851,12 +1864,6 @@ dependencies = [
  "tagptr",
  "uuid",
 ]
-
-[[package]]
-name = "ndk-context"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27b02d87554356db9e9a873add8782d4ea6e3e58ea071a9adb9a2e8ddb884a8b"
 
 [[package]]
 name = "nibble_vec"
@@ -1960,6 +1967,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "option-ext"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04744f49eae99ab78e0d5c0b603ab218f515ea8cfe5a456d7629ad883a3b6e7d"
+
+[[package]]
 name = "parking"
 version = "2.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2049,7 +2062,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf1d70880e76bdc13ba52eafa6239ce793d85c8e43896507e43dd8984ff05b82"
 dependencies = [
  "pest",
- "sha2",
+ "sha2 0.10.9",
 ]
 
 [[package]]
@@ -2236,9 +2249,9 @@ dependencies = [
 
 [[package]]
 name = "quick-xml"
-version = "0.37.5"
+version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "331e97a1af0bf59823e6eadffe373d7b27f485be8748f71471c662c1f269b7fb"
+checksum = "958f21e8e7ceb5a1aa7fa87fab28e7c75976e0bfe7e23ff069e0a260f894067d"
 dependencies = [
  "memchr",
 ]
@@ -2320,6 +2333,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f3fe0889e69e2ae9e41f4d6c4c0181701d00e4697b356fb1f74173a5e0ee27"
 dependencies = [
  "bitflags 2.10.0",
+]
+
+[[package]]
+name = "redox_users"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a4e608c6638b9c18977b00b475ac1f28d14e84b27d8d42f70e0bf1e3dec127ac"
+dependencies = [
+ "getrandom 0.2.16",
+ "libredox",
+ "thiserror",
 ]
 
 [[package]]
@@ -2562,8 +2586,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3bf829a2d51ab4a5ddf1352d8470c140cadc8301b2ae1789db023f01cedd6ba"
 dependencies = [
  "cfg-if",
- "cpufeatures",
- "digest",
+ "cpufeatures 0.2.17",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -2572,7 +2596,7 @@ version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89f599ac0c323ebb1c6082821a54962b839832b03984598375bff3975b804423"
 dependencies = [
- "digest",
+ "digest 0.10.7",
  "sha1",
 ]
 
@@ -2583,8 +2607,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
  "cfg-if",
- "cpufeatures",
- "digest",
+ "cpufeatures 0.2.17",
+ "digest 0.10.7",
+]
+
+[[package]]
+name = "sha2"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "446ba717509524cb3f22f17ecc096f10f4822d76ab5c0b9822c5f9c284e825f4"
+dependencies = [
+ "cfg-if",
+ "cpufeatures 0.3.0",
+ "digest 0.11.2",
 ]
 
 [[package]]
@@ -2739,20 +2774,21 @@ dependencies = [
 [[package]]
 name = "tectonic"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "anyhow",
  "byte-unit",
  "cfg-if",
  "clap",
  "clap_complete",
+ "digest-io",
  "error-chain",
  "flate2",
  "lazy_static",
  "open",
  "quick-xml",
  "regex",
- "sha2",
+ "sha2 0.11.0",
  "tar",
  "tectonic_bridge_core",
  "tectonic_bundles",
@@ -2798,7 +2834,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_core"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "flate2",
@@ -2813,7 +2849,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_flate"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "flate2",
  "libc",
@@ -2822,7 +2858,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_fontconfig"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "libc",
  "tectonic_bridge_png",
@@ -2832,7 +2868,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_freetype2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "libc",
  "tectonic_bridge_flate",
@@ -2843,7 +2879,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_graphite2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "libc",
  "tectonic_dep_support",
@@ -2852,7 +2888,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_harfbuzz"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "libc",
@@ -2866,7 +2902,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_icu"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2874,7 +2910,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_png"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2882,7 +2918,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bundles"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "flate2",
  "tectonic_errors",
@@ -2896,7 +2932,7 @@ dependencies = [
 [[package]]
 name = "tectonic_cfg_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "lazy_static",
 ]
@@ -2904,7 +2940,7 @@ dependencies = [
 [[package]]
 name = "tectonic_dep_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "pkg-config",
  "vcpkg",
@@ -2913,7 +2949,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_bibtex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "indexmap",
  "libc",
@@ -2925,7 +2961,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_spx2html"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "byteorder",
  "html-escape",
@@ -2945,7 +2981,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xdvipdfmx"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "libc",
@@ -2957,7 +2993,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xetex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "libc",
@@ -2976,7 +3012,7 @@ dependencies = [
 [[package]]
 name = "tectonic_errors"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "anyhow",
 ]
@@ -2984,7 +3020,7 @@ dependencies = [
 [[package]]
 name = "tectonic_geturl"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cfg-if",
  "tectonic_errors",
@@ -2994,21 +3030,21 @@ dependencies = [
 [[package]]
 name = "tectonic_io_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
- "app_dirs2",
+ "directories",
  "flate2",
  "libc",
- "sha2",
+ "sha2 0.11.0",
  "tectonic_errors",
  "tectonic_status_base",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
 name = "tectonic_mac_core"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "libc",
  "tectonic_cfg_support",
@@ -3017,7 +3053,7 @@ dependencies = [
 [[package]]
 name = "tectonic_pdf_io"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "tectonic_bridge_core",
@@ -3029,7 +3065,7 @@ dependencies = [
 [[package]]
 name = "tectonic_status_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "tectonic_errors",
 ]
@@ -3037,7 +3073,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xdv"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "byteorder",
 ]
@@ -3045,7 +3081,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xetex_layout"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#5e6babe320fe8f041a513b050e34f633006abad0"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
 dependencies = [
  "cc",
  "enrede",
@@ -3107,31 +3143,11 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
-dependencies = [
- "thiserror-impl 1.0.69",
-]
-
-[[package]]
-name = "thiserror"
 version = "2.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f63587ca0f12b72a0600bcba1d40081f830876000bb46dd2337a3051618f4fc8"
 dependencies = [
- "thiserror-impl 2.0.17",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "1.0.69"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.112",
+ "thiserror-impl",
 ]
 
 [[package]]
@@ -3350,10 +3366,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "typenum"
-version = "1.19.0"
+name = "typed-path"
+version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
+checksum = "8e28f89b80c87b8fb0cf04ab448d5dd0dd0ade2f8891bae878de66a75a28600e"
+
+[[package]]
+name = "typenum"
+version = "1.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40ce102ab67701b8526c123c1bab5cbe42d7040ccfd0f64af1a385808d2f43de"
 
 [[package]]
 name = "ucd-trie"
@@ -3603,7 +3625,7 @@ dependencies = [
  "miette",
  "normalize-path",
  "notify",
- "thiserror 2.0.17",
+ "thiserror",
  "tokio",
  "tracing",
  "watchexec-events",
@@ -3658,7 +3680,7 @@ checksum = "377729679262964c27e6a28f360a84b7aedb172b59841301c1c77922305dfd83"
 dependencies = [
  "miette",
  "nix",
- "thiserror 2.0.17",
+ "thiserror",
 ]
 
 [[package]]
@@ -3687,22 +3709,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "winapi"
-version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
-dependencies = [
- "winapi-i686-pc-windows-gnu",
- "winapi-x86_64-pc-windows-gnu",
-]
-
-[[package]]
-name = "winapi-i686-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
-
-[[package]]
 name = "winapi-util"
 version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3710,12 +3716,6 @@ checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
  "windows-sys 0.61.2",
 ]
-
-[[package]]
-name = "winapi-x86_64-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "windows"
@@ -3858,15 +3858,6 @@ dependencies = [
 
 [[package]]
 name = "windows-sys"
-version = "0.45.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75283be5efb2831d37ea142365f009c02ec203cd29a3ebecbc093d52315b66d0"
-dependencies = [
- "windows-targets 0.42.2",
-]
-
-[[package]]
-name = "windows-sys"
 version = "0.59.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e38bc4d79ed67fd075bcc251a1c39b32a1776bbe92e5bef1f0bf1f8c531853b"
@@ -3890,21 +3881,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
 dependencies = [
  "windows-link 0.2.1",
-]
-
-[[package]]
-name = "windows-targets"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8e5180c00cd44c9b1c88adb3693291f1cd93605ded80c250a75d472756b4d071"
-dependencies = [
- "windows_aarch64_gnullvm 0.42.2",
- "windows_aarch64_msvc 0.42.2",
- "windows_i686_gnu 0.42.2",
- "windows_i686_msvc 0.42.2",
- "windows_x86_64_gnu 0.42.2",
- "windows_x86_64_gnullvm 0.42.2",
- "windows_x86_64_msvc 0.42.2",
 ]
 
 [[package]]
@@ -3951,12 +3927,6 @@ dependencies = [
 
 [[package]]
 name = "windows_aarch64_gnullvm"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "597a5118570b68bc08d8d59125332c54f1ba9d9adeedeef5b99b02ba2b0698f8"
-
-[[package]]
-name = "windows_aarch64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a4622180e7a0ec044bb555404c800bc9fd9ec262ec147edd5989ccd0c02cd3"
@@ -3969,12 +3939,6 @@ checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
 
 [[package]]
 name = "windows_aarch64_msvc"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e08e8864a60f06ef0d0ff4ba04124db8b0fb3be5776a5cd47641e942e58c4d43"
-
-[[package]]
-name = "windows_aarch64_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09ec2a7bb152e2252b53fa7803150007879548bc709c039df7627cabbd05d469"
@@ -3984,12 +3948,6 @@ name = "windows_aarch64_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
-
-[[package]]
-name = "windows_i686_gnu"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c61d927d8da41da96a81f029489353e68739737d3beca43145c8afec9a31a84f"
 
 [[package]]
 name = "windows_i686_gnu"
@@ -4017,12 +3975,6 @@ checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
 
 [[package]]
 name = "windows_i686_msvc"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "44d840b6ec649f480a41c8d80f9c65108b92d89345dd94027bfe06ac444d1060"
-
-[[package]]
-name = "windows_i686_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "240948bc05c5e7c6dabba28bf89d89ffce3e303022809e73deaefe4f6ec56c66"
@@ -4032,12 +3984,6 @@ name = "windows_i686_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
-
-[[package]]
-name = "windows_x86_64_gnu"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8de912b8b8feb55c064867cf047dda097f92d51efad5b491dfb98f6bbb70cb36"
 
 [[package]]
 name = "windows_x86_64_gnu"
@@ -4053,12 +3999,6 @@ checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
 
 [[package]]
 name = "windows_x86_64_gnullvm"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26d41b46a36d453748aedef1486d5c7a85db22e56aff34643984ea85514e94a3"
-
-[[package]]
-name = "windows_x86_64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24d5b23dc417412679681396f2b49f3de8c1473deb516bd34410872eff51ed0d"
@@ -4068,12 +4008,6 @@ name = "windows_x86_64_gnullvm"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
-
-[[package]]
-name = "windows_x86_64_msvc"
-version = "0.42.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9aec5da331524158c6d1a4ac0ab1541149c0b9505fde06423b02f5ef0106b9f0"
 
 [[package]]
 name = "windows_x86_64_msvc"
@@ -4132,12 +4066,6 @@ dependencies = [
  "libc",
  "rustix",
 ]
-
-[[package]]
-name = "xdg"
-version = "2.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "213b7324336b53d2414b2db8537e56544d981803139155afa84f76eeebb7a546"
 
 [[package]]
 name = "yoke"
@@ -4238,15 +4166,15 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "4.6.1"
+version = "8.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "caa8cd6af31c3b31c6631b8f483848b91589021b28fffe50adada48d4f4d2ed1"
+checksum = "2d04a6b5381502aa6087c94c669499eb1602eb9c5e8198e534de571f7154809b"
 dependencies = [
- "arbitrary",
  "crc32fast",
  "flate2",
  "indexmap",
  "memchr",
+ "typed-path",
  "zopfli",
 ]
 
