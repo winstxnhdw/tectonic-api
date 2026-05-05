@@ -3,15 +3,6 @@
 version = 4
 
 [[package]]
-name = "addr2line"
-version = "0.25.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1b5d307320b3181d6d7954e663bd7c774a838b8220fe0593c86d9fb09f498b4b"
-dependencies = [
- "gimli",
-]
-
-[[package]]
 name = "adler2"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -194,21 +185,6 @@ dependencies = [
  "sync_wrapper",
  "tower-layer",
  "tower-service",
-]
-
-[[package]]
-name = "backtrace"
-version = "0.3.76"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb531853791a215d7c62a30daf0dde835f381ab5de4589cfe7c649d2cbe92bd6"
-dependencies = [
- "addr2line",
- "cfg-if",
- "libc",
- "miniz_oxide",
- "object",
- "rustc-demangle",
- "windows-link 0.2.1",
 ]
 
 [[package]]
@@ -691,16 +667,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "error-chain"
-version = "0.12.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2d2f06b9cac1506ece98fe3231e3cc9c4410ec3d5b1f24ae1c8946f0742cdefc"
-dependencies = [
- "backtrace",
- "version_check",
-]
-
-[[package]]
 name = "event-listener"
 version = "4.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -929,12 +895,6 @@ dependencies = [
  "r-efi",
  "wasip2",
 ]
-
-[[package]]
-name = "gimli"
-version = "0.32.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e629b9b98ef3dd8afe6ca2bd0f89306cec16d43d907889945bc5d6687f2f13c7"
 
 [[package]]
 name = "gix-actor"
@@ -1935,15 +1895,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "object"
-version = "0.37.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe"
-dependencies = [
- "memchr",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2450,12 +2401,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc-demangle"
-version = "0.1.26"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "56f7d92ca342cea22a06f2121d944b4fd82af56988c270852495420f961d4ace"
-
-[[package]]
 name = "rustix"
 version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2774,7 +2719,7 @@ dependencies = [
 [[package]]
 name = "tectonic"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "anyhow",
  "byte-unit",
@@ -2782,7 +2727,6 @@ dependencies = [
  "clap",
  "clap_complete",
  "digest-io",
- "error-chain",
  "flate2",
  "lazy_static",
  "open",
@@ -2834,7 +2778,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_core"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "flate2",
@@ -2849,7 +2793,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_flate"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "flate2",
  "libc",
@@ -2858,7 +2802,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_fontconfig"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "libc",
  "tectonic_bridge_png",
@@ -2868,7 +2812,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_freetype2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "libc",
  "tectonic_bridge_flate",
@@ -2879,7 +2823,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_graphite2"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "libc",
  "tectonic_dep_support",
@@ -2888,7 +2832,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_harfbuzz"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "libc",
@@ -2902,7 +2846,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_icu"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2910,7 +2854,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bridge_png"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "tectonic_dep_support",
 ]
@@ -2918,7 +2862,7 @@ dependencies = [
 [[package]]
 name = "tectonic_bundles"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "flate2",
  "tectonic_errors",
@@ -2932,7 +2876,7 @@ dependencies = [
 [[package]]
 name = "tectonic_cfg_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "lazy_static",
 ]
@@ -2940,7 +2884,7 @@ dependencies = [
 [[package]]
 name = "tectonic_dep_support"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "pkg-config",
  "vcpkg",
@@ -2949,7 +2893,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_bibtex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "indexmap",
  "libc",
@@ -2961,7 +2905,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_spx2html"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "byteorder",
  "html-escape",
@@ -2981,7 +2925,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xdvipdfmx"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "libc",
@@ -2993,7 +2937,7 @@ dependencies = [
 [[package]]
 name = "tectonic_engine_xetex"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "libc",
@@ -3012,7 +2956,7 @@ dependencies = [
 [[package]]
 name = "tectonic_errors"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "anyhow",
 ]
@@ -3020,7 +2964,7 @@ dependencies = [
 [[package]]
 name = "tectonic_geturl"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cfg-if",
  "tectonic_errors",
@@ -3030,7 +2974,7 @@ dependencies = [
 [[package]]
 name = "tectonic_io_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "directories",
  "flate2",
@@ -3044,7 +2988,7 @@ dependencies = [
 [[package]]
 name = "tectonic_mac_core"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "libc",
  "tectonic_cfg_support",
@@ -3053,7 +2997,7 @@ dependencies = [
 [[package]]
 name = "tectonic_pdf_io"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "tectonic_bridge_core",
@@ -3065,7 +3009,7 @@ dependencies = [
 [[package]]
 name = "tectonic_status_base"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "tectonic_errors",
 ]
@@ -3073,7 +3017,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xdv"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "byteorder",
 ]
@@ -3081,7 +3025,7 @@ dependencies = [
 [[package]]
 name = "tectonic_xetex_layout"
 version = "0.0.0-dev.0"
-source = "git+https://github.com/tectonic-typesetting/tectonic.git#a641203089c63dab05d5aa26bc77b5e90671df4d"
+source = "git+https://github.com/tectonic-typesetting/tectonic.git#ecd00745e5b1d220ccc27ec1c6f1bed0c29c1adf"
 dependencies = [
  "cc",
  "enrede",
@@ -3197,9 +3141,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.52.1"
+version = "1.52.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b67dee974fe86fd92cc45b7a95fdd2f99a36a6d7b0d431a231178d3d670bbcc6"
+checksum = "110a78583f19d5cdb2c5ccf321d1290344e71313c6c37d43520d386027d18386"
 dependencies = [
  "bytes",
  "libc",
@@ -3448,9 +3392,9 @@ checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 
 [[package]]
 name = "utoipa"
-version = "5.4.0"
+version = "5.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2fcc29c80c21c31608227e0912b2d7fddba57ad76b606890627ba8ee7964e993"
+checksum = "8bde15df68e80b16c7d16b9616e80770ad158988daa56a27dccd1e55558b0160"
 dependencies = [
  "indexmap",
  "serde",
@@ -3460,9 +3404,9 @@ dependencies = [
 
 [[package]]
 name = "utoipa-gen"
-version = "5.4.0"
+version = "5.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d79d08d92ab8af4c5e8a6da20c47ae3f61a0f1dabc1997cdf2d082b757ca08b"
+checksum = "6ba0b99ee52df3028635d93840c797102da61f8a7bb3cf751032455895b52ef8"
 dependencies = [
  "proc-macro2",
  "quote",
