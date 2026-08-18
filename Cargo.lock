@@ -3440,9 +3440,9 @@ dependencies = [
 
 [[package]]
 name = "utoipauto"
-version = "0.3.0"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d92372d35a311d022e5c9ba1a44f4e28f906dab9c7b31950102c6bc3c082f711"
+checksum = "3481a79e9008eb926488cc7c1070bd6b2ce9e1aca2e22289f97ad1a9d02e9d5b"
 dependencies = [
  "utoipauto-macro",
 ]
