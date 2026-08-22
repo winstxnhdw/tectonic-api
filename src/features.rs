@@ -1,7 +1,7 @@
 use tectonic::driver;
 use tectonic::errors;
 
-pub fn latex_to_pdf<T: AsRef<str>>(latex: T) -> errors::Result<Vec<u8>> {
+pub fn latex_to_pdf<T: AsRef<str>>(latex: T) -> tectonic::Result<Vec<u8>> {
     let name = "texput";
     let config = tectonic::config::PersistentConfig::open(false)?;
     let mut builder = driver::ProcessingSessionBuilder::default();
@@ -25,6 +25,6 @@ pub fn latex_to_pdf<T: AsRef<str>>(latex: T) -> errors::Result<Vec<u8>> {
     session
         .into_file_data()
         .remove(&format!("{name}.pdf"))
-        .ok_or_else(|| errors::Error::from("LaTeX didn't report failure, but no PDF was created (??)"))
+        .ok_or_else(|| errors::Error::msg("LaTeX didn't report failure, but no PDF was created (??)"))
         .map(|file| file.data)
 }

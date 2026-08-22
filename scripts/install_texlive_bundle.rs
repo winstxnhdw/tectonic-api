@@ -11,16 +11,16 @@ default-features = false
 features = ["blocking", "default-tls"]
 
 [dependencies.tectonic_bundles]
-git = "https://github.com/tectonic-typesetting/tectonic.git"
+version = "0.4.2"
 default-features = false
 features = ["geturl-reqwest"]
 
 [dependencies.tectonic_engine_xetex]
-git = "https://github.com/tectonic-typesetting/tectonic.git"
+version = "0.5.3"
 default-features = false
 
 [dependencies.tectonic_io_base]
-git = "https://github.com/tectonic-typesetting/tectonic.git"
+version = "0.6.0"
 default-features = false
 ---
 
@@ -84,7 +84,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
 
     std::fs::write(
-        hashes_directory.join(app_dirs::app_dirs2::sanitized(&bundle_url)),
+        hashes_directory.join(app_dirs::sanitize(&bundle_url)),
         &digest_hash,
     )?;
 

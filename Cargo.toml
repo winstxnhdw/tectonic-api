@@ -15,13 +15,11 @@ hybrid = ["gxhash/hybrid"]
 axum = { version = "0.8.9", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.15", default-features = false, features = ["future"] }
+reqwest = { version = "0.12.24", default-features = false, features = ["json", "rustls-tls-webpki-roots"] }
 serde = { version = "1.0.228", default-features = false, features = ["derive", "rc"] }
+tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
 tokio = { version = "1.52.3", default-features = false }
 utoipa = { version = "5.5.0", default-features = false, features = ["axum_extras"] }
 utoipa-scalar = { version = "0.3", default-features = false, features = ["axum"] }
 utoipauto = { version = "0.3.0-alpha.2", default-features = false }
-
-[dependencies.tectonic]
-git = "https://github.com/tectonic-typesetting/tectonic.git"
-default-features = false
-features = ["external-harfbuzz"]
+uuid = { version = "1.19.0", default-features = false, features = ["v4"] }
