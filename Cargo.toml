@@ -16,7 +16,7 @@ axum = { version = "0.8.9", default-features = false, features = ["tokio", "quer
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.15", default-features = false, features = ["future"] }
 reqwest = { version = "0.12.24", default-features = false, features = ["json", "rustls-tls-webpki-roots"] }
-serde = { version = "1.0.228", default-features = false, features = ["derive", "rc"] }
+serde = { version = "1.0.229", default-features = false, features = ["derive", "rc"] }
 tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
 tokio = { version = "1.52.3", default-features = false }
 utoipa = { version = "5.5.0", default-features = false, features = ["axum_extras"] }
