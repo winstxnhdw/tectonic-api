@@ -12,13 +12,22 @@ edition = "2024"
 hybrid = ["gxhash/hybrid"]
 
 [dependencies]
-axum = { version = "0.8.9", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
+axum = { version = "0.8.9", default-features = false, features = ["tokio", "query", "json", "http1", "http2", "matched-path"] }
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
 moka = { version = "0.12.16", default-features = false, features = ["future"] }
+opentelemetry = { version = "0.32.0", default-features = false, features = ["trace", "metrics", "logs"] }
+opentelemetry-appender-tracing = { version = "0.32.0", default-features = false }
+opentelemetry-otlp = { version = "0.32.0", default-features = false, features = ["http-proto", "reqwest-blocking-client", "reqwest-rustls", "logs"] }
+opentelemetry-system-metrics = { version = "0.32.0", default-features = false }
+opentelemetry_sdk = { version = "0.32.0", default-features = false, features = ["trace", "metrics", "logs"] }
 reqwest = { version = "0.13.4", default-features = false, features = ["json", "query", "rustls"] }
 serde = { version = "1.0.229", default-features = false, features = ["derive", "rc"] }
 tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
 tokio = { version = "1.53.1", default-features = false }
+tower-http = { version = "0.6.11", default-features = false, features = ["trace"] }
+tracing = { version = "0.1.44", default-features = false }
+tracing-opentelemetry = { version = "0.33.0", default-features = false }
+tracing-subscriber = { version = "0.3.23", default-features = false, features = ["registry"] }
 utoipa = { version = "5.5.0", default-features = false, features = ["axum_extras"] }
 utoipa-scalar = { version = "0.3", default-features = false, features = ["axum"] }
 utoipauto = { version = "0.3.1", default-features = false }

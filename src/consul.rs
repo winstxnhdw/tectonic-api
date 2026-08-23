@@ -1,13 +1,14 @@
 use reqwest::header::AUTHORIZATION;
 use reqwest::header::HeaderMap;
 use reqwest::header::HeaderValue;
+use reqwest::header::InvalidHeaderValue;
 use serde::Serialize;
 use std::fmt;
 use std::fmt::Debug;
 use std::marker::PhantomData;
 
 pub enum Error {
-    InvalidAuthToken(reqwest::header::InvalidHeaderValue),
+    InvalidAuthToken(InvalidHeaderValue),
     Request(reqwest::Error),
 }
 
@@ -20,8 +21,8 @@ impl Debug for Error {
     }
 }
 
-impl From<reqwest::header::InvalidHeaderValue> for Error {
-    fn from(error: reqwest::header::InvalidHeaderValue) -> Self {
+impl From<InvalidHeaderValue> for Error {
+    fn from(error: InvalidHeaderValue) -> Self {
         Self::InvalidAuthToken(error)
     }
 }
@@ -63,14 +64,15 @@ struct RegistrationConfig<'a> {
     consul_http_addr: Option<&'a str>,
     consul_service_address: Option<&'a str>,
     service_name: &'a str,
+    service_id: String,
     consul_service_port: u16,
     consul_service_scheme: &'a str,
     headers: HeaderMap,
 }
 
-pub struct RegistrationBuilder<'a, HttpAddress = (), ServiceAddress = (), ServiceName = ()> {
+pub struct RegistrationBuilder<'a, HttpAddress = (), ServiceAddress = (), ServiceName = (), ServiceId = ()> {
     config: RegistrationConfig<'a>,
-    state: PhantomData<(HttpAddress, ServiceAddress, ServiceName)>,
+    state: PhantomData<(HttpAddress, ServiceAddress, ServiceName, ServiceId)>,
 }
 
 impl Registration {
@@ -89,17 +91,12 @@ impl Registration {
 
 impl<'a> RegistrationBuilder<'a> {
     pub fn new() -> Self {
-        Self::default()
-    }
-}
-
-impl<'a> Default for RegistrationBuilder<'a> {
-    fn default() -> Self {
         Self {
             config: RegistrationConfig {
                 consul_http_addr: None,
                 consul_service_address: None,
                 service_name: "",
+                service_id: String::new(),
                 consul_service_port: 443,
                 consul_service_scheme: "https",
                 headers: HeaderMap::new(),
@@ -109,7 +106,9 @@ impl<'a> Default for RegistrationBuilder<'a> {
     }
 }
 
-impl<'a, HttpAddress, ServiceAddress, ServiceName> RegistrationBuilder<'a, HttpAddress, ServiceAddress, ServiceName> {
+impl<'a, HttpAddress, ServiceAddress, ServiceName, ServiceId>
+    RegistrationBuilder<'a, HttpAddress, ServiceAddress, ServiceName, ServiceId>
+{
     pub fn auth_token(mut self, consul_auth_token: Option<&str>) -> Result<Self, Error> {
         if let Some(token) = consul_auth_token {
             let mut value = HeaderValue::from_str(&format!("Bearer {token}"))?;
@@ -131,11 +130,11 @@ impl<'a, HttpAddress, ServiceAddress, ServiceName> RegistrationBuilder<'a, HttpA
     }
 }
 
-impl<'a, ServiceAddress, ServiceName> RegistrationBuilder<'a, (), ServiceAddress, ServiceName> {
+impl<'a, ServiceAddress, ServiceName, ServiceId> RegistrationBuilder<'a, (), ServiceAddress, ServiceName, ServiceId> {
     pub fn http_addr(
         mut self,
         consul_http_addr: Option<&'a str>,
-    ) -> RegistrationBuilder<'a, Option<&'a str>, ServiceAddress, ServiceName> {
+    ) -> RegistrationBuilder<'a, Option<&'a str>, ServiceAddress, ServiceName, ServiceId> {
         self.config.consul_http_addr = consul_http_addr;
 
         RegistrationBuilder {
@@ -145,11 +144,11 @@ impl<'a, ServiceAddress, ServiceName> RegistrationBuilder<'a, (), ServiceAddress
     }
 }
 
-impl<'a, HttpAddress, ServiceName> RegistrationBuilder<'a, HttpAddress, (), ServiceName> {
+impl<'a, HttpAddress, ServiceName, ServiceId> RegistrationBuilder<'a, HttpAddress, (), ServiceName, ServiceId> {
     pub fn service_address(
         mut self,
         consul_service_address: Option<&'a str>,
-    ) -> RegistrationBuilder<'a, HttpAddress, Option<&'a str>, ServiceName> {
+    ) -> RegistrationBuilder<'a, HttpAddress, Option<&'a str>, ServiceName, ServiceId> {
         self.config.consul_service_address = consul_service_address;
 
         RegistrationBuilder {
@@ -159,11 +158,11 @@ impl<'a, HttpAddress, ServiceName> RegistrationBuilder<'a, HttpAddress, (), Serv
     }
 }
 
-impl<'a, HttpAddress, ServiceAddress> RegistrationBuilder<'a, HttpAddress, ServiceAddress, ()> {
+impl<'a, HttpAddress, ServiceAddress, ServiceId> RegistrationBuilder<'a, HttpAddress, ServiceAddress, (), ServiceId> {
     pub fn service_name(
         mut self,
         service_name: &'a str,
-    ) -> RegistrationBuilder<'a, HttpAddress, ServiceAddress, &'a str> {
+    ) -> RegistrationBuilder<'a, HttpAddress, ServiceAddress, &'a str, ServiceId> {
         self.config.service_name = service_name;
 
         RegistrationBuilder {
@@ -173,7 +172,21 @@ impl<'a, HttpAddress, ServiceAddress> RegistrationBuilder<'a, HttpAddress, Servi
     }
 }
 
-impl<'a> RegistrationBuilder<'a, Option<&'a str>, Option<&'a str>, &'a str> {
+impl<'a, HttpAddress, ServiceAddress, ServiceName> RegistrationBuilder<'a, HttpAddress, ServiceAddress, ServiceName> {
+    pub fn service_id(
+        mut self,
+        service_id: String,
+    ) -> RegistrationBuilder<'a, HttpAddress, ServiceAddress, ServiceName, String> {
+        self.config.service_id = service_id;
+
+        RegistrationBuilder {
+            config: self.config,
+            state: PhantomData,
+        }
+    }
+}
+
+impl<'a> RegistrationBuilder<'a, Option<&'a str>, Option<&'a str>, &'a str, String> {
     pub async fn register(self) -> Result<Option<Registration>, Error> {
         let Some(consul_http_addr) = self.config.consul_http_addr.filter(|address| !address.is_empty()) else {
             return Ok(None);
@@ -185,11 +198,6 @@ impl<'a> RegistrationBuilder<'a, Option<&'a str>, Option<&'a str>, &'a str> {
         };
 
         let service_endpoint = format!("{}/v1/agent/service", consul_http_addr.trim_end_matches('/'));
-        let service_id = format!(
-            "{}-{:04x}",
-            self.config.service_name,
-            uuid::Uuid::new_v4().as_u128() as u16
-        );
 
         let health_endpoint = format!(
             "{}://{}:{}/api/health",
@@ -204,7 +212,7 @@ impl<'a> RegistrationBuilder<'a, Option<&'a str>, Option<&'a str>, &'a str> {
 
         let payload = Service {
             name: self.config.service_name,
-            id: &service_id,
+            id: &self.config.service_id,
             tags: ["prometheus"],
             address: consul_service_address,
             port: self.config.consul_service_port,
@@ -224,7 +232,7 @@ impl<'a> RegistrationBuilder<'a, Option<&'a str>, Option<&'a str>, &'a str> {
         Ok(Some(Registration {
             headers: self.config.headers,
             service_endpoint,
-            service_id,
+            service_id: self.config.service_id,
         }))
     }
 }

@@ -65,3 +65,18 @@ docker run --init --rm \
     -p 7860:7860 \
     tectonic-api
 ```
+
+### Telemetry
+
+You can enable OpenTelemetry support by passing the `OTEL_EXPORTER_OTLP_ENDPOINT` environment variable. This enables exporting traces, HTTP and process metrics, and logs to the specified OTLP/HTTP endpoint.
+
+```bash
+docker run --init --rm \
+    -e SERVER_PORT=7860 \
+    -e OTEL_RESOURCE_ATTRIBUTES=service.namespace=huggingface,deployment.environment=production \
+    -e OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp-gateway-prod-ap-southeast-1.grafana.net/otlp \
+    -e "OTEL_EXPORTER_OTLP_HEADERS=Authorization=Basic%20$OTEL_AUTH_TOKEN" \
+    -e OTEL_METRIC_EXPORT_INTERVAL=10000 \
+    -p 7860:7860 \
+    ghcr.io/winstxnhdw/tectonic-api:main
+```
