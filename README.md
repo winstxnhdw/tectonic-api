@@ -46,6 +46,15 @@ You can spin the server up locally by first building the Docker image.
 docker build -f Dockerfile.build -t tectonic-api .
 ```
 
+To enable the fast cache implementation, set the `USE_FAST_CACHE` build argument to a non-empty value:
+
+```bash
+docker build \
+    --build-arg USE_FAST_CACHE=1 \
+    -f Dockerfile.build \
+    -t tectonic-api .
+```
+
 Finally, you can run the Docker container with the following environment variables.
 
 ```bash

@@ -6,6 +6,8 @@ use axum::Router;
 use utoipa::OpenApi;
 use utoipa_scalar::Servable;
 
+pub use features::latex_to_pdf;
+
 #[utoipauto::utoipauto]
 #[derive(OpenApi)]
 #[openapi(info(description = "An API for compiling TeX/LaTeX with Tectonic"))]

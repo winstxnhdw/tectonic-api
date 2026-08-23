@@ -14,6 +14,7 @@ RUN cargo -Zscript install_texlive_bundle.rs
 FROM rust:slim-bookworm AS rust-builder
 
 ARG TECTONIC_BUNDLE_LOCKED
+ARG USE_FAST_CACHE
 
 COPY . .
 
@@ -26,12 +27,12 @@ RUN apt install -y g++ libssl-dev libfontconfig-dev libharfbuzz-dev libtinfo5 wg
 RUN wget -q https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/$LLVM.tar.xz
 RUN tar xJf $LLVM.tar.xz --strip-components=1 -C /usr/local/ $LLVM/bin/llvm-bolt $LLVM/bin/merge-fdata $LLVM/lib/libbolt_rt_instr.a
 RUN cargo install cargo-pgo
-RUN cargo pgo build -- --locked --features hybrid
+RUN cargo pgo build -- --locked ${USE_FAST_CACHE:+--features hybrid}
 
 COPY --from=texlive-builder /root/.cache/tectonic /root/.cache/tectonic
 
 RUN cargo -Zscript scripts/collect_profiles.rs $BOLT_DIR/tectonic-api
-RUN cargo pgo bolt build --with-pgo -- --locked --features hybrid
+RUN cargo pgo bolt build --with-pgo -- --locked ${USE_FAST_CACHE:+--features hybrid}
 RUN cargo -Zscript scripts/collect_profiles.rs $BOLT_DIR/tectonic-api-bolt-instrumented
 RUN cargo pgo bolt optimize --with-pgo
 RUN strip /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized
@@ -44,7 +45,7 @@ ENV PATH=$HOME/app:$PATH
 
 WORKDIR $HOME/app
 
-COPY --from=texlive-builder /root/.cache/tectonic $HOME/.cache/tectonic
+COPY --from=texlive-builder --chown=nonroot:nonroot /root/.cache/tectonic $HOME/.cache/tectonic
 COPY --from=rust-builder    /etc/fonts /etc/fonts
 COPY --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
 COPY --from=rust-builder    /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized $HOME/app/tectonic-api

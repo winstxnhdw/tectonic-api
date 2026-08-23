@@ -51,6 +51,8 @@ jobs:
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
     with:
       file: Dockerfile.build
+      build-args: |
+        USE_FAST_CACHE=1
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
     permissions:

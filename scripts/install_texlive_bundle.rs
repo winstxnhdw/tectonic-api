@@ -123,7 +123,10 @@ fn main() -> Result<(), Error> {
         &mut BufWriter::new(File::create(&index_path)?),
     )?;
 
-    std::fs::write(hashes_directory.join(app_dirs::sanitize(&bundle_url)), &digest_hash)?;
+    std::fs::write(
+        hashes_directory.join(app_dirs::sanitize(&bundle_url)), 
+        &digest_hash
+    )?;
 
     let mut stream_position = 0;
     let mut response = reqwest::blocking::Client::builder()
