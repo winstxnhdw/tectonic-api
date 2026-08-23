@@ -1,5 +1,7 @@
 FROM rust:slim-bookworm AS texlive-builder
 
+ENV TECTONIC_BUNDLE_LOCKED=https://data1.fullyjustified.net/tlextras-2022.0r0.tar
+
 COPY rust-toolchain.toml scripts/install_texlive_bundle.rs ./
 
 RUN apt update
