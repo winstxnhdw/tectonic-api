@@ -14,12 +14,12 @@ hybrid = ["gxhash/hybrid"]
 [dependencies]
 axum = { version = "0.8.9", default-features = false, features = ["tokio", "query", "json", "http1", "http2"] }
 gxhash = { version = "3.5.0", default-features = false, features = ["std"] }
-moka = { version = "0.12.15", default-features = false, features = ["future"] }
-reqwest = { version = "0.12.24", default-features = false, features = ["json", "rustls-tls-webpki-roots"] }
-serde = { version = "1.0.229", default-features = false, features = ["derive", "rc"] }
+moka = { version = "0.12.16", default-features = false, features = ["future"] }
+reqwest = { version = "0.13.4", default-features = false, features = ["json", "query", "rustls"] }
+serde = { version = "1.0.228", default-features = false, features = ["derive", "rc"] }
 tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
-tokio = { version = "1.52.3", default-features = false }
+tokio = { version = "1.53.1", default-features = false }
 utoipa = { version = "5.5.0", default-features = false, features = ["axum_extras"] }
 utoipa-scalar = { version = "0.3", default-features = false, features = ["axum"] }
-utoipauto = { version = "0.3.0-alpha.2", default-features = false }
-uuid = { version = "1.19.0", default-features = false, features = ["v4"] }
+utoipauto = { version = "0.3.1", default-features = false }
+uuid = { version = "1.25.0", default-features = false, features = ["v4"] }
