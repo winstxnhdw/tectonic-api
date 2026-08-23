@@ -11,15 +11,18 @@ on:
       - src/**
       - scripts/**
 
+permissions: {}
+
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           show-progress: false
+          persist-credentials: false
 
       - name: Install dependenc(ies)
         run: |
@@ -37,14 +40,11 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Setup Rust
-        run: |
-          rustup default nightly
-          rustup component add clippy
-          rustup update
-
       - name: Lint
         run: cargo clippy
+
+      - name: Format
+        run: cargo fmt --all --check
 
   push:
     if: github.ref == 'refs/heads/main'

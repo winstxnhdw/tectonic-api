@@ -24,7 +24,7 @@ RUN tar xJf $LLVM.tar.xz --strip-components=1 -C /usr/local/ $LLVM/bin/llvm-bolt
 RUN cargo install cargo-pgo
 RUN cargo pgo build -- --locked --features hybrid
 
-COPY --from=texlive-builder /root/.cache/Tectonic /root/.cache/Tectonic
+COPY --from=texlive-builder /root/.cache/tectonic /root/.cache/tectonic
 
 RUN cargo -Zscript scripts/collect_profiles.rs $BOLT_DIR/tectonic-api
 RUN cargo pgo bolt build --with-pgo -- --locked --features hybrid
@@ -40,7 +40,7 @@ ENV PATH=$HOME/app:$PATH
 
 WORKDIR $HOME/app
 
-COPY --from=texlive-builder /root/.cache/Tectonic $HOME/.cache/Tectonic
+COPY --from=texlive-builder /root/.cache/tectonic $HOME/.cache/tectonic
 COPY --from=rust-builder    /etc/fonts /etc/fonts
 COPY --from=rust-builder    /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
 COPY --from=rust-builder    /target/x86_64-unknown-linux-gnu/release/tectonic-api-bolt-optimized $HOME/app/tectonic-api
