@@ -24,7 +24,7 @@ reqwest = { version = "0.13.4", default-features = false, features = ["json", "q
 serde = { version = "1.0.229", default-features = false, features = ["derive", "rc"] }
 tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
 tokio = { version = "1.53.1", default-features = false }
-tower-http = { version = "0.6.11", default-features = false, features = ["trace"] }
+tower-http = { version = "0.7.0", default-features = false, features = ["trace"] }
 tracing = { version = "0.1.44", default-features = false }
 tracing-opentelemetry = { version = "0.33.0", default-features = false }
 tracing-subscriber = { version = "0.3.23", default-features = false, features = ["registry"] }
