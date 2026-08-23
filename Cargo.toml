@@ -19,7 +19,7 @@ opentelemetry = { version = "0.32.0", default-features = false, features = ["tra
 opentelemetry-appender-tracing = { version = "0.32.0", default-features = false }
 opentelemetry-otlp = { version = "0.32.0", default-features = false, features = ["http-proto", "reqwest-blocking-client", "reqwest-rustls", "logs"] }
 opentelemetry-system-metrics = { version = "0.32.0", default-features = false }
-opentelemetry_sdk = { version = "0.32.0", default-features = false, features = ["trace", "metrics", "logs"] }
+opentelemetry_sdk = { version = "0.32.1", default-features = false, features = ["trace", "metrics", "logs"] }
 reqwest = { version = "0.13.4", default-features = false, features = ["json", "query", "rustls"] }
 serde = { version = "1.0.229", default-features = false, features = ["derive", "rc"] }
 tectonic = { version = "0.17.0", default-features = false, features = ["external-harfbuzz"] }
