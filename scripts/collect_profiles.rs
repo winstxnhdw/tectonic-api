@@ -11,10 +11,39 @@ default-features = false
 features = ["blocking", "default-tls", "query"]
 ---
 
+use std::fmt;
+use std::fmt::Debug;
 use std::fs;
+use std::io::Error as IoError;
 use std::process::Command;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+enum Error {
+    Io(IoError),
+    Request(reqwest::Error),
+}
+
+impl Debug for Error {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Io(error) => Debug::fmt(error, formatter),
+            Self::Request(error) => Debug::fmt(error, formatter),
+        }
+    }
+}
+
+impl From<IoError> for Error {
+    fn from(error: IoError) -> Self {
+        Self::Io(error)
+    }
+}
+
+impl From<reqwest::Error> for Error {
+    fn from(error: reqwest::Error) -> Self {
+        Self::Request(error)
+    }
+}
+
+fn main() -> Result<(), Error> {
     let client = reqwest::blocking::Client::builder().http1_only().build()?;
     let binary = std::env::args().nth(1).expect("usage: collect_profiles.rs <binary>");
     let mut server = Command::new(&binary)
@@ -30,10 +59,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     for entry in fs::read_dir("scripts/profiles")?.filter_map(Result::ok) {
-        if entry.path().extension().is_none_or(|ext| ext != "tex") {
-            continue;
-        }
-
         for _ in 0..30 {
             client
                 .get("http://localhost:5555/api/v2/pdf")
@@ -43,7 +68,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    // Send SIGTERM (not SIGKILL) so PGO/BOLT instrumentation can flush profile data
     Command::new("/bin/sh")
         .args(["-c", &format!("kill {}", server.id())])
         .status()?;

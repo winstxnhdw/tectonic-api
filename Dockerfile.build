@@ -1,6 +1,8 @@
+ARG TECTONIC_BUNDLE_LOCKED=https://data1.fullyjustified.net/tlextras-2022.0r0.tar
+
 FROM rust:slim-bookworm AS texlive-builder
 
-ENV TECTONIC_BUNDLE_LOCKED=https://data1.fullyjustified.net/tlextras-2022.0r0.tar
+ARG TECTONIC_BUNDLE_LOCKED
 
 COPY rust-toolchain.toml scripts/install_texlive_bundle.rs ./
 
@@ -10,6 +12,8 @@ RUN cargo -Zscript install_texlive_bundle.rs
 
 
 FROM rust:slim-bookworm AS rust-builder
+
+ARG TECTONIC_BUNDLE_LOCKED
 
 COPY . .
 

@@ -3,29 +3,19 @@ use reqwest::header::HeaderMap;
 use reqwest::header::HeaderValue;
 use serde::Serialize;
 use std::fmt;
-use std::fmt::Display;
+use std::fmt::Debug;
 use std::marker::PhantomData;
 
-#[derive(Debug)]
 pub enum Error {
     InvalidAuthToken(reqwest::header::InvalidHeaderValue),
     Request(reqwest::Error),
 }
 
-impl Display for Error {
+impl Debug for Error {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::InvalidAuthToken(_) => formatter.write_str("invalid Consul authentication token"),
-            Self::Request(_) => formatter.write_str("Consul request failed"),
-        }
-    }
-}
-
-impl std::error::Error for Error {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::InvalidAuthToken(error) => Some(error),
-            Self::Request(error) => Some(error),
+            Self::InvalidAuthToken(error) => Debug::fmt(error, formatter),
+            Self::Request(error) => Debug::fmt(error, formatter),
         }
     }
 }

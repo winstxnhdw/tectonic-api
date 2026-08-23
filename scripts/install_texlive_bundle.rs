@@ -19,15 +19,21 @@ features = ["geturl-reqwest"]
 version = "0.5.3"
 default-features = false
 
+[dependencies.tectonic_errors]
+version = "0.3.0"
+
 [dependencies.tectonic_io_base]
 version = "0.6.0"
 default-features = false
 ---
 
+use std::fmt;
+use std::fmt::Debug;
 use std::fs::File;
 use std::fs::create_dir_all;
 use std::io::BufRead;
 use std::io::BufWriter;
+use std::io::Error as IoError;
 use std::io::Read;
 use std::io::copy;
 use tectonic_bundles::Bundle;
@@ -48,6 +54,40 @@ enum IndexParseError {
     InvalidLength,
 }
 
+enum Error {
+    Io(IoError),
+    Request(reqwest::Error),
+    Tectonic(tectonic_errors::Error),
+}
+
+impl Debug for Error {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Io(error) => Debug::fmt(error, formatter),
+            Self::Request(error) => Debug::fmt(error, formatter),
+            Self::Tectonic(error) => Debug::fmt(error, formatter),
+        }
+    }
+}
+
+impl From<IoError> for Error {
+    fn from(error: IoError) -> Self {
+        Self::Io(error)
+    }
+}
+
+impl From<reqwest::Error> for Error {
+    fn from(error: reqwest::Error) -> Self {
+        Self::Request(error)
+    }
+}
+
+impl From<tectonic_errors::Error> for Error {
+    fn from(error: tectonic_errors::Error) -> Self {
+        Self::Tectonic(error)
+    }
+}
+
 fn parse_file_index(line: impl AsRef<str>) -> Result<FileIndexEntry, IndexParseError> {
     let mut fields = line.as_ref().split_whitespace();
 
@@ -66,7 +106,7 @@ fn parse_file_index(line: impl AsRef<str>) -> Result<FileIndexEntry, IndexParseE
     Ok(FileIndexEntry { name, offset, length })
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Error> {
     let bundle_url = tectonic_bundles::get_fallback_bundle_url(tectonic_engine_xetex::FORMAT_SERIAL);
     let mut bundle = tectonic_bundles::itar::ItarBundle::new(bundle_url.clone())?;
     let digest_hash = bundle.get_digest()?.to_string();
@@ -83,10 +123,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &mut BufWriter::new(File::create(&index_path)?),
     )?;
 
-    std::fs::write(
-        hashes_directory.join(app_dirs::sanitize(&bundle_url)),
-        &digest_hash,
-    )?;
+    std::fs::write(hashes_directory.join(app_dirs::sanitize(&bundle_url)), &digest_hash)?;
 
     let mut stream_position = 0;
     let mut response = reqwest::blocking::Client::builder()

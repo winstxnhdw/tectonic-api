@@ -2,29 +2,19 @@ mod consul;
 
 use std::env::var;
 use std::fmt;
-use std::fmt::Display;
+use std::fmt::Debug;
 use std::io::Error as IoError;
 
-#[derive(Debug)]
 enum Error {
     Consul(consul::Error),
     Io(IoError),
 }
 
-impl Display for Error {
+impl Debug for Error {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Consul(error) => Display::fmt(error, formatter),
-            Self::Io(error) => Display::fmt(error, formatter),
-        }
-    }
-}
-
-impl std::error::Error for Error {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Self::Consul(error) => Some(error),
-            Self::Io(error) => Some(error),
+            Self::Consul(error) => Debug::fmt(error, formatter),
+            Self::Io(error) => Debug::fmt(error, formatter),
         }
     }
 }
