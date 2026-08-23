@@ -3,7 +3,6 @@
 [![API](https://img.shields.io/endpoint?url=https%3A%2F%2Fwinstxnhdw-tectonic-api.hf.space%2Fapi%2Fhealth&logo=huggingface&label=tectonic-api&labelColor=%230B0F19&color=brightgreen)](https://huggingface.co/spaces/winstxnhdw/tectonic-api)
 [![build.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/build.yml)
 [![warmer.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/warmer.yml)
-[![dependabot.yml](https://github.com/winstxnhdw/tectonic-api/actions/workflows/dependabot.yml/badge.svg)](https://github.com/winstxnhdw/tectonic-api/actions/workflows/dependabot.yml)
 
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/tectonic-api)
 [![Open a Pull Request](https://huggingface.co/datasets/huggingface/badges/raw/main/open-a-pr-md-dark.svg)](https://github.com/winstxnhdw/tectonic-api/compare)
