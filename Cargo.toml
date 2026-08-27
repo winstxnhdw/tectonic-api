@@ -31,4 +31,4 @@ tracing-subscriber = { version = "0.3.23", default-features = false, features = 
 utoipa = { version = "5.5.0", default-features = false, features = ["axum_extras"] }
 utoipa-scalar = { version = "0.3", default-features = false, features = ["axum"] }
 utoipauto = { version = "0.3.1", default-features = false }
-uuid = { version = "1.25.0", default-features = false, features = ["v4"] }
+uuid = { version = "1.26.0", default-features = false, features = ["v4"] }
