@@ -18,6 +18,6 @@ on:
 
 jobs:
   warm:
-    uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@4bc6679dff95ade0d7b54199996217bb52a826a9 # main
+    uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@9a8a1548bdf2fae3fe2f70426f0af4dfef3c38b4 # main
     with:
       path: /api/health
