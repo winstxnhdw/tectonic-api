@@ -48,7 +48,7 @@ jobs:
 
   push:
     if: github.ref == 'refs/heads/main'
-    uses: winstxnhdw/actions/.github/workflows/docker-push.yml@bfab88ec8f2299aca2069cf92f09d011b65f0889 # main
+    uses: winstxnhdw/actions/.github/workflows/docker-push.yml@194a3954c9a7525253ad966bf030068bdbc0250e # main
     with:
       file: Dockerfile.build
       build-args: |
@@ -60,6 +60,6 @@ jobs:
 
   restart:
     needs: [lint, push]
-    uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@bfab88ec8f2299aca2069cf92f09d011b65f0889 # main
+    uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@194a3954c9a7525253ad966bf030068bdbc0250e # main
     secrets:
       token: ${{ secrets.HF_TOKEN }}
